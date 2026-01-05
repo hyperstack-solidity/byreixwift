@@ -12,4 +12,5 @@ See [Project Vision and MVP](./PROJECT.md) for goals, target users, and scope.
 
 ## Contributing
 
-See [Definition of Done](./DOD.md) for checklist before closing issues.
+- [Definition of Done](./DOD.md) — checklist before closing issues
+- [Branch Strategy](./CONTRIBUTING.md) — how to contribute
