@@ -4,3 +4,12 @@ Frontend web application for Byreixwift (MERN-compatible), built with Next.js an
 ## Team
 
 See [Team Members](./MEMBERS.md) for the full list of contributors.
+
+
+## Project
+
+See [Project Vision and MVP](./PROJECT.md) for goals, target users, and scope.
+
+## Contributing
+
+See [Definition of Done](./DOD.md) for checklist before closing issues.
