@@ -1,20 +1,6 @@
-<!-- Pull Request Template for the project Completed for review(01/06/2026) -->
-<!-- Hey team!
-I've created a pull request template necessary for our frontend repository to help streamline our process, especially when we enter our 2nd sprint which includes UI heavy features.
-Ano nga ba ang gagawin natin kapag maggagawa ng pull request? 
-- May mga kailangan kayong i-provide ng information at i-fill-out na boxes para mas mapadaling i-review ito ng ating tech lead.
-
-Anu-ano ito?
-As you scroll down sa section na ito ay makikita niyo lahat ng paglalagyan niyo ng information. Kung hindi naman Applicable ay pwedeng ilagay ang N/A or "Not Applicable"
-
-Itong template ay hiningan ko ng tulong sa AI at nagconduct din ng magssearch kung pa'no gawin ang template na ito. Gayunpaman, hinihingi ko ang inyong saysay partikular sa dokumentong ito para maenhance at mapadali ang ating workflow.
--->
-
 # Description
-<!-- Provide a brief description of your changes -->
 
 ## Type of Change
-<!-- Mark your type of change with an 'x' -->
 - [ ] Bug fix (non-breaking change that fixes an issue)
 - [ ] New feature (non-breaking change that adds functionality)
 - [ ] UI/UX change (updates to user interface or user experience)
@@ -26,18 +12,15 @@ Itong template ay hiningan ko ng tulong sa AI at nagconduct din ng magssearch ku
 - [ ] Added/Updated Dependencies
 
 ## Related Issues
-<!-- Link to related issues using #issue_number-->
 Fixes #
 Relates to #
 
 ## Changes Made
-<!-- List the main changes made in this PR -->
 - 
 - 
 - 
 
 ## UI/UX Changes
-<!-- If your PR includes UI/UX Changes, fill this instead -->
 
 **Components affected:**
 - 
@@ -63,7 +46,6 @@ Relates to #
 - [ ] App Router changes
 
 ## Testing
-<!-- Describe how you tested your changes -->
 
 **Testing completed:**
 - [ ] Manual testing in development
@@ -78,7 +60,6 @@ Relates to #
 3. 
 
 ## Screenshots/Videos for UI/UX
-<!-- Required for UI changes - show before/after or new features -->
 
 **Before:**
 <!-- Add screenshot or write "N/A - New Feature" -->
@@ -87,15 +68,6 @@ Relates to #
 **After:**
 <!-- Add screenshot or screen recording -->
 
-
-## Accessibility
-<!-- Confirm accessibility for UI changes -->
-- [ ] Keyboard navigation works properly
-- [ ] Focus indicators are visible
-- [ ] ARIA labels added where needed
-- [ ] Semantic HTML used
-- [ ] Color contrast is sufficient
-- [ ] Screen reader friendly
 
 ## Performance Considerations
 <!-- For features that may impact performance -->
@@ -122,7 +94,7 @@ Relates to #
 
 ---
 **Reviewer Notes:**
-<!-- You will not check this, the reviewer will do it-->
+<!-- CHECKED BY THE REVIEWER -->
 - [ ] Code logic is sound
 - [ ] UI matches requirements/design
 - [ ] No obvious bugs or edge cases
