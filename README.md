@@ -14,6 +14,8 @@ Frontend web application for Byreixwift, built with Next.js and TypeScript. Clea
 ## Quick Start
 
 ```bash
+git clone <repo>
+cd project
 pnpm install
 pnpm dev
 ```
