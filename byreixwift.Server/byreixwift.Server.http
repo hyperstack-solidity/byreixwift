@@ -1,0 +1,6 @@
+@byreixwift.Server_HostAddress = http://localhost:5010
+
+GET {{byreixwift.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

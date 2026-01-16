@@ -40,8 +40,15 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# appsettings
-appsettings.json
+# add appsettings.json soon
+#appsettings.json
+
 
 # vs
 .vs/
+
+# bin
+**/bin
+
+# obj
+**/obj
