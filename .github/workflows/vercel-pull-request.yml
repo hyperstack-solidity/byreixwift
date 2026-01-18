@@ -45,13 +45,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
-      - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Next.js Application
+        run: pnpm build
       
-      - name: Deploy Project Artifacts to Vercel
+      - name: Deploy to Vercel
         id: vercel-deploy
         run: |
-          url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          url=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }})
           echo "preview-url=$url" >> $GITHUB_OUTPUT
           echo "Preview URL: $url"
       
