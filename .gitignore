@@ -35,7 +35,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+#.env*
 
 # vercel
 .vercel
@@ -55,11 +55,7 @@ next-env.d.ts
 **/bin
 
 # obj
-<<<<<<< HEAD
 **/obj
 
 #vscode
 **/.vscode
-=======
-**/obj
->>>>>>> f5672b265666eafbbef8c17e57fe848eba454f68
