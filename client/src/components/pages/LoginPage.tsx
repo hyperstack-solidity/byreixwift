@@ -36,7 +36,6 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
         <div className="min-h-screen flex flex-col lg:flex-row">
             {/* Left Side - Login Form (Mobile First) */}
             <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 lg:py-0 relative">
-                {/* Subtle background glow for mobile */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none lg:hidden">
                     <div
                         className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
@@ -90,7 +89,7 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
                                     Continue with Google
                                 </Button>
 
-                                {/* Divider */}
+            
                                 <div className="relative py-2">
                                     <div className="absolute inset-0 flex items-center">
                                         <div className="w-full border-t border-[#1E1E1E]" />
@@ -102,7 +101,7 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
                                     </div>
                                 </div>
 
-                                {/* Wallet Connect Button - Emphasized */}
+                                {/* Wallet Connect Button */}
                                 <Button
                                 onClick={onWalletConnect}
                                 className="w-full flex items-center justify-center bg-[#26D578] hover:bg-[#26D578]/90 text-black font-semibold py-6 transition-all hover:shadow-[0_0_30px_rgba(38,213,120,0.3)] group">
@@ -144,9 +143,7 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
 
             {/* Right Side - Branding (Desktop Only) */}
             <div className="hidden lg:flex flex-1 bg-[#0A0A0A] relative overflow-hidden">
-                {/* Background Effects */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {/* Large ambient glow */}
                     <div
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
                         style={{
@@ -155,7 +152,7 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
                         }}
                     />
                     
-                    {/* Accent glow */}
+                   
                     <div
                         className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full"
                         style={{
@@ -164,8 +161,6 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
                         }}
                     />
                 </div>
-
-                {/* Content */}
                 <div className="relative z-10 flex flex-col justify-center px-12 xl:px-20 max-w-2xl">
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
@@ -214,7 +209,7 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
                             ))}
                         </div>
 
-                        {/* Trust Indicators */}
+                    
                         <div className="mt-12 pt-8 border-t border-[#1E1E1E]">
                             <div className="flex items-center gap-8">
                                 <div>
