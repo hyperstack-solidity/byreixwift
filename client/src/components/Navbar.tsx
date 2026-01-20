@@ -26,7 +26,7 @@ export function Navbar({ onConnect, isConnected, currentPage, onNavigate }: Navb
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <button onClick={() => onNavigate?.("home")} className="flex-shrink-0">
+                    <button onClick={() => onNavigate?.("home")} className="flex-shrink-0" title="home">
                         <ByreixLogo />
                     </button>
 
@@ -65,7 +65,7 @@ export function Navbar({ onConnect, isConnected, currentPage, onNavigate }: Navb
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         className="md:hidden p-2 text-[#A0A0A0] hover:text-white"
-                    >
+                    title="menu">
                         <Menu className="w-6 h-6" />
                     </button>
                 </div>
