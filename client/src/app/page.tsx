@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import { LandingPage } from "@/components/pages/LandingPage";
+import { LoginPage } from "@/components/pages/LoginPage";
 import { WalletDashboard } from "@/components/pages/WalletDashboard";
 import { EscrowPage } from "@/components/pages/EscrowPage";
 import { Toaster } from "@/components/ui/sonner";
@@ -25,6 +26,25 @@ export default function Home() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    // Here you would typically:
+    // 1. Initiate Google OAuth flow
+    // 2. Redirect to Google authentication
+    // 3. Handle callback and set user session
+    
+    // For demo purposes, simulate successful login
+    setTimeout(() => {
+      setIsWalletConnected(true);
+      toast.success("Signed in with Google successfully!");
+      setCurrentPage("wallet");
+    }, 1000);
+  };
+
+  const handleWalletConnect = () => {
+    // Reuse the existing wallet connection logic
+    handleConnect();
+  };
+
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
     // Scroll to top on navigation
@@ -43,6 +63,13 @@ export default function Home() {
       <main className="relative">
         {currentPage === "home" && (
           <LandingPage onNavigate={handleNavigate} onConnect={handleConnect} />
+        )}
+        {currentPage === "login" && (
+          <LoginPage 
+            onNavigate={handleNavigate} 
+            onGoogleLogin={handleGoogleLogin}
+            onWalletConnect={handleWalletConnect}
+          />
         )}
         {currentPage === "wallet" && <WalletDashboard onNavigate={handleNavigate} />}
         {currentPage === "escrow" && <EscrowPage />}
