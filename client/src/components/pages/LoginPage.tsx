@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { ArrowRight, Wallet, Shield, Lock } from "lucide-react";
@@ -130,7 +130,7 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
 
                     {/* Sign Up Link */}
                     <p className="mt-6 text-center text-sm text-[#A0A0A0]">
-                        Don't have an account?{" "}
+                        Don&apos;t have an account?{" "}
                         <button
                             onClick={() => onNavigate("signup")}
                             className="text-[#26D578] hover:text-[#26D578]/80 font-medium transition-colors"
