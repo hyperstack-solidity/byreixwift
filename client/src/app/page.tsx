@@ -9,6 +9,7 @@ import { WalletDashboard } from "@/components/pages/WalletDashboard";
 import { EscrowPage } from "@/components/pages/EscrowPage";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { AdContainer } from "@/components/ad-container";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -40,7 +41,12 @@ export default function Home() {
         onNavigate={handleNavigate}
       />
 
-      <main className="relative">
+      <main className="relative ">
+      <div className="py-4">
+           {/* Ad Placeholder Fallback States*/}
+           <AdContainer simulateError={true} /> 
+        </div>
+
         {currentPage === "home" && (
           <LandingPage onNavigate={handleNavigate} onConnect={handleConnect} />
         )}

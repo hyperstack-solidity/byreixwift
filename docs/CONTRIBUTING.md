@@ -62,7 +62,7 @@ When `dev` is stable and tested, create a PR from `dev` → `main`.
 
 ## Rules
 
-- Never push directly to `main`
-- Always create PR for code review
-- Keep commits small and descriptive
+- Never push directly to `main` (production)
+- Always create PR (pull request) for code review
+- Keep commits simple and descriptive
 - Delete branches after merging
