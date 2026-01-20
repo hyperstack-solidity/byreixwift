@@ -42,15 +42,15 @@ export default function Home() {
       />
 
       <main className="relative ">
-      <div className="py-4">
-           {/* Ad Placeholder Fallback States*/}
-           <AdContainer simulateError={true} /> 
+        <div className="py-4">
+          {/* Ad Placeholder Fallback States*/}
+          <AdContainer simulateError={true} />
         </div>
 
         {currentPage === "home" && (
           <LandingPage onNavigate={handleNavigate} onConnect={handleConnect} />
         )}
-        {currentPage === "wallet" && <WalletDashboard onNavigate={handleNavigate} />}
+        {currentPage === "wallet" && <WalletDashboard />}
         {currentPage === "escrow" && <EscrowPage />}
       </main>
 
