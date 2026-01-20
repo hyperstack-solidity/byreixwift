@@ -13,6 +13,7 @@ import { toast } from "sonner";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("home");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
 
   const handleConnect = () => {
@@ -20,6 +21,7 @@ export default function Home() {
       // Simulate wallet connection
       setTimeout(() => {
         setIsWalletConnected(true);
+        setIsAuthenticated(true);
         toast.success("Wallet connected successfully!");
         setCurrentPage("wallet");
       }, 500);
@@ -33,6 +35,7 @@ export default function Home() {
     // simulation of successful login for now
     setTimeout(() => {
       setIsWalletConnected(true);
+      setIsAuthenticated(true);
       toast.success("Signed in with Google successfully!");
       setCurrentPage("wallet");
     }, 1000);
@@ -44,6 +47,11 @@ export default function Home() {
   };
 
   const handleNavigate = (page: string) => {
+    if ((page === "wallet" || page === "escrow") && !isAuthenticated) {
+      toast.error("Please log in to access this page.");
+      return;
+    }
+
     setCurrentPage(page);
    
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -55,6 +63,7 @@ export default function Home() {
         onConnect={handleConnect}
         isConnected={isWalletConnected}
         currentPage={currentPage}
+        isAuthenticated={isAuthenticated}
         onNavigate={handleNavigate}
       />
 
@@ -69,8 +78,8 @@ export default function Home() {
             onWalletConnect={handleWalletConnect}
           />
         )}
-        {currentPage === "wallet" && <WalletDashboard onNavigate={handleNavigate} />}
-        {currentPage === "escrow" && <EscrowPage />}
+        {currentPage === "wallet" && isAuthenticated && <WalletDashboard  />}
+        {currentPage === "escrow" && isAuthenticated && <EscrowPage />}
       </main>
 
       <Footer />

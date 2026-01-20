@@ -9,17 +9,17 @@ interface NavbarProps {
     onConnect?: () => void;
     isConnected?: boolean;
     currentPage?: string;
+    isAuthenticated?: boolean;
     onNavigate?: (page: string) => void;
 }
 
-export function Navbar({ onConnect, isConnected, currentPage, onNavigate }: NavbarProps) {
+export function Navbar({ onConnect, isConnected, currentPage, isAuthenticated, onNavigate }: NavbarProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const navLinks = [
         { label: "Home", value: "home" },
         { label: "Wallet", value: "wallet" },
         { label: "Escrow", value: "escrow" },
-        {label: "Login", value: "login"},
     ];
 
     return (
@@ -45,6 +45,19 @@ export function Navbar({ onConnect, isConnected, currentPage, onNavigate }: Navb
                                 {link.label}
                             </button>
                         ))}
+                        {!isAuthenticated && (
+                            <button
+                                 onClick={() => onNavigate?.("login")}
+                                 className={`text-sm transition-colors ${
+                                     currentPage === "login"
+                                         ? "text-[#26D578]"
+                                         : "text-[#A0A0A0] hover:text-white"
+                                 }`}
+                             >
+                                 Login
+                            </button>
+                        )}
+
                     </div>
 
                     {/* Connect Wallet Button */}
@@ -90,6 +103,22 @@ export function Navbar({ onConnect, isConnected, currentPage, onNavigate }: Navb
                                     {link.label}
                                 </button>
                             ))}
+                            {!isAuthenticated && (
+                                <button
+                                    onClick={() => {
+                                        onNavigate?.("login");
+                                        setMobileMenuOpen(false);
+                                    }}
+                                    className={`text-left px-2 py-2 text-sm transition-colors ${
+                                        currentPage === "login"
+                                            ? "text-[#26D578]"
+                                            : "text-[#A0A0A0] hover:text-white"
+                                    }`}
+                                >
+                                    Login
+                                </button>
+                            )}
+            
                             {!isConnected && (
                                 <Button onClick={onConnect} className="bg-[#26D578] hover:bg-[#26D578]/90 text-black">
                                     <Wallet className="w-4 h-4 mr-2" />

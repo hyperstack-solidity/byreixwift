@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { ArrowRight, Wallet, Shield, Lock } from "lucide-react";
@@ -113,7 +112,7 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
                                 {/* Security Note */}
                                 <div className="mt-8 p-5 rounded-lg bg-[#121212] border border-[#1E1E1E]">
                                     <div className="flex gap-4">
-                                        <Shield className="w-6 h-6 text-[#26D578] flex-shrink-0 mt-0.5" />
+                                        <Shield className="w-6 h-6 text-[#26D578] shrink-0 mt-0.5" />
                                         <div>
                                             <p className="text-base text-[#E5E5E5] font-medium mb-1.5">
                                                 Secure & Private
@@ -130,7 +129,7 @@ export function LoginPage({ onGoogleLogin, onWalletConnect, onNavigate }: LoginP
 
                     {/* Sign Up Link */}
                     <p className="mt-6 text-center text-sm text-[#A0A0A0]">
-                        Don't have an account?{" "}
+                        Don&apos;t have an account?{" "}
                         <button
                             onClick={() => onNavigate("signup")}
                             className="text-[#26D578] hover:text-[#26D578]/80 font-medium transition-colors"
