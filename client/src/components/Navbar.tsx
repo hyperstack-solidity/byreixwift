@@ -19,6 +19,7 @@ export function Navbar({ onConnect, isConnected, currentPage, onNavigate }: Navb
         { label: "Home", value: "home" },
         { label: "Wallet", value: "wallet" },
         { label: "Escrow", value: "escrow" },
+        {label: "Login", value: "login"},
     ];
 
     return (
