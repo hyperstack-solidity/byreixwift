@@ -27,12 +27,10 @@ export default function Home() {
   };
 
   const handleGoogleLogin = () => {
-    // Here you would typically:
-    // 1. Initiate Google OAuth flow
-    // 2. Redirect to Google authentication
-    // 3. Handle callback and set user session
+   // TODO:
+   // login through google  or wallet connect will be implemented here
     
-    // For demo purposes, simulate successful login
+    // simulation of successful login for now
     setTimeout(() => {
       setIsWalletConnected(true);
       toast.success("Signed in with Google successfully!");
@@ -41,13 +39,13 @@ export default function Home() {
   };
 
   const handleWalletConnect = () => {
-    // Reuse the existing wallet connection logic
+  
     handleConnect();
   };
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
-    // Scroll to top on navigation
+   
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
