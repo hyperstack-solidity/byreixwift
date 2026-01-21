@@ -11,11 +11,7 @@ import { TrendViewPage } from "./TrendViewPage";
 import { toast } from "sonner";
 import Image from "next/image";
 
-interface WalletDashboardProps {
-    onNavigate: (page: string) => void;
-}
-
-export function WalletDashboard({ onNavigate: _onNavigate }: WalletDashboardProps) {
+export function WalletDashboard() {
     const [activeTab, setActiveTab] = useState("overview");
     const [balanceVisible, setBalanceVisible] = useState(true);
 

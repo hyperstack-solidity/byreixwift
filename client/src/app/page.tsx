@@ -78,7 +78,7 @@ export default function Home() {
             onWalletConnect={handleWalletConnect}
           />
         )}
-        {currentPage === "wallet" && <WalletDashboard onNavigate={handleNavigate} />}
+        {currentPage === "wallet" && <WalletDashboard />}
         {currentPage === "escrow" && <EscrowPage />}
       </main>
 
