@@ -35,7 +35,7 @@ export function Navbar({
           {/* Logo */}
           <button
             onClick={() => onNavigate?.("home")}
-            className="flex-shrink-0"
+            className="shrink-0 cursor-pointer"
             title="home"
           >
             <ByreixLogo />
@@ -58,7 +58,7 @@ export function Navbar({
                 <button
                   key={link.value}
                   onClick={() => onNavigate?.(link.value)}
-                  className={`text-sm transition-colors ${
+                  className={`text-sm transition-colors cursor-pointer ${
                     currentPage === link.value
                       ? "text-[#26D578]"
                       : "text-[#A0A0A0] hover:text-white"
@@ -80,7 +80,7 @@ export function Navbar({
             ) : (
               <Button
                 onClick={onConnect}
-                className="bg-[#26D578] hover:bg-[#26D578]/90 text-black"
+                className="bg-[#26D578] hover:bg-[#26D578]/90 text-black cursor-pointer"
               >
                 <Wallet className="w-4 h-4 mr-2" />
                 Connect Wallet
@@ -120,7 +120,7 @@ export function Navbar({
                       onNavigate?.(link.value);
                       setMobileMenuOpen(false);
                     }}
-                    className={`text-left px-2 py-2 text-sm transition-colors ${
+                    className={`text-left px-2 py-2 text-sm transition-colors cursor-pointer ${
                       currentPage === link.value
                         ? "text-[#26D578]"
                         : "text-[#A0A0A0] hover:text-white"
@@ -133,7 +133,7 @@ export function Navbar({
               {!isConnected && (
                 <Button
                   onClick={onConnect}
-                  className="bg-[#26D578] hover:bg-[#26D578]/90 text-black"
+                  className="bg-[#26D578] hover:bg-[#26D578]/90 text-black cursor-pointer"
                 >
                   <Wallet className="w-4 h-4 mr-2" />
                   Connect Wallet
