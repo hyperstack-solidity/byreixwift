@@ -32,7 +32,7 @@ export const Sidebar = () => {
           className="p-2 text-[#A0A0A0] hover:text-white transition-all active:scale-95 cursor-pointer"
           aria-label="Toggle Menu"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <Menu size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
@@ -73,8 +73,8 @@ export const Sidebar = () => {
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                     isActive
-                      ? "bg-[#26D578]/10 text-[#26D578]"
-                      : "text-[#A0A0A0] hover:text-white hover:bg-white/5"
+                      ? " text-[#26D578]"
+                      : "text-[#A0A0A0] hover:text-white "
                   }`}
                 >
                   {link.name}

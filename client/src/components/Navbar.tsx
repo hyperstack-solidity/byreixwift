@@ -94,7 +94,7 @@ export function Navbar({
             className="md:hidden p-2 text-[#A0A0A0] hover:text-white"
             title="menu"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-6 h-6 cursor-pointer" />
           </button>
         </div>
 
@@ -123,7 +123,7 @@ export function Navbar({
                     className={`text-left px-2 py-2 text-sm transition-colors cursor-pointer ${
                       currentPage === link.value
                         ? "text-[#26D578]"
-                        : "text-[#A0A0A0] hover:text-white"
+                        : "text-[#A0A0A0] hover:text-white "
                     }`}
                   >
                     {link.label}
