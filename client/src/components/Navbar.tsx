@@ -25,6 +25,7 @@ export function Navbar({
     { label: "Home", value: "home" },
     { label: "Wallet", value: "wallet" },
     { label: "Escrow", value: "escrow" },
+    { label: "Login", value: "login" },
     { label: "CMS", value: "cms", href: "/cms", isRoute: true },
   ];
 
