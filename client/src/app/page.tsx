@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import { LandingPage } from "@/components/pages/LandingPage";
+import { LoginPage } from "@/components/pages/LoginPage";
 import { WalletDashboard } from "@/components/pages/WalletDashboard";
 import { EscrowPage } from "@/components/pages/EscrowPage";
 import { Toaster } from "@/components/ui/sonner";
@@ -24,6 +25,31 @@ export default function Home() {
         setCurrentPage("wallet");
       }, 500);
     }
+  };
+
+  const handleEmailLogin = (credentials: { email: string; password: string; rememberMe: boolean }) => {
+    // TODO: Call api controller for authentication, store auth token, redirect to dashboard
+ 
+    setTimeout(() => {
+      setIsWalletConnected(true);
+      toast.success(`Welcome back! Signed in as ${credentials.email}`);
+      setCurrentPage("wallet");
+    }, 1000);
+  };
+
+  const handleGoogleLogin = () => {
+    // TODO: Call api controller for authentication, open google authentication, store auth token, redirect to dashboard
+
+    setTimeout(() => {
+      setIsWalletConnected(true);
+      toast.success("Signed in with Google successfully!");
+      setCurrentPage("wallet");
+    }, 1000);
+  };
+
+  const handleWalletConnect = () => {
+    // Reuse the existing wallet connection logic
+    handleConnect();
   };
 
   const handleNavigate = (page: string) => {
@@ -49,6 +75,14 @@ export default function Home() {
 
         {currentPage === "home" && (
           <LandingPage onNavigate={handleNavigate} onConnect={handleConnect} />
+        )}
+        {currentPage === "login" && (
+          <LoginPage 
+            onNavigate={handleNavigate}
+            onEmailLogin={handleEmailLogin}
+            onGoogleLogin={handleGoogleLogin}
+            onWalletConnect={handleWalletConnect}
+          />
         )}
         {currentPage === "wallet" && <WalletDashboard />}
         {currentPage === "escrow" && <EscrowPage />}
