@@ -14,6 +14,30 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
+// Mock data for different time ranges
+const CHART_DATA = {
+    "1H": Array.from({ length: 12 }, (_, i) => ({
+        time: `${i * 5}m`,
+        price: 2.0 + (i % 3) * 0.05 - 0.02,
+    })),
+    "24H": Array.from({ length: 24 }, (_, i) => ({
+        time: `${i}:00`,
+        price: 2.0 + (i % 5) * 0.1 - 0.05,
+    })),
+    "7D": Array.from({ length: 7 }, (_, i) => ({
+        time: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i],
+        price: 1.8 + i * 0.04 + (i % 2) * 0.05,
+    })),
+    "30D": Array.from({ length: 30 }, (_, i) => ({
+        time: `${i + 1}`,
+        price: 1.6 + i * 0.015 + (i % 4) * 0.025,
+    })),
+    "1Y": Array.from({ length: 12 }, (_, i) => ({
+        time: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i],
+        price: 1.0 + i * 0.1 + (i % 3) * 0.1,
+    })),
+};
+
 export function TrendViewPage() {
     const [selectedToken, setSelectedToken] = useState("SDA");
     const [timeRange, setTimeRange] = useState("7D");
@@ -27,31 +51,7 @@ export function TrendViewPage() {
 
     const timeRanges = ["1H", "24H", "7D", "30D", "1Y"];
 
-    // Mock data for different time ranges
-    const chartData = {
-        "1H": Array.from({ length: 12 }, (_, i) => ({
-            time: `${i * 5}m`,
-            price: 2.0 + Math.random() * 0.1 - 0.05,
-        })),
-        "24H": Array.from({ length: 24 }, (_, i) => ({
-            time: `${i}:00`,
-            price: 2.0 + Math.random() * 0.2 - 0.1,
-        })),
-        "7D": Array.from({ length: 7 }, (_, i) => ({
-            time: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i],
-            price: 1.8 + i * 0.04 + Math.random() * 0.1,
-        })),
-        "30D": Array.from({ length: 30 }, (_, i) => ({
-            time: `${i + 1}`,
-            price: 1.6 + i * 0.015 + Math.random() * 0.1,
-        })),
-        "1Y": Array.from({ length: 12 }, (_, i) => ({
-            time: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i],
-            price: 1.0 + i * 0.1 + Math.random() * 0.2,
-        })),
-    };
-
-    const currentData = chartData[timeRange as keyof typeof chartData];
+    const currentData = CHART_DATA[timeRange as keyof typeof CHART_DATA];
     const selectedTokenData = tokens.find((t) => t.symbol === selectedToken)!;
 
     const stats = [
