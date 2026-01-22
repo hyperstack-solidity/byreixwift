@@ -4,6 +4,11 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Wallet, Loader2, AlertCircle, ArrowRight } from "lucide-react";
 
+interface EthereumProvider {
+    
+    request: (args: { method: string; params?: unknown[] }) => Promise<string[]>;
+}
+
 interface WalletLoginButtonProps {
     onConnect: (address: string) => void;
 }
@@ -22,9 +27,8 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
             //STEP 1: Sidra Chain Wallet Detection
             // no sidra chain extension so will use metamask or simulation
 
-            if (typeof window !== "undefined" && (window as any).ethereum) {
-                const provider = (window as any).ethereum;
-
+            if (typeof window !== "undefined" && "ethereum" in window) {
+                const provider = window.ethereum as unknown as EthereumProvider;
 
 
                 // STEP 2: Sidra Chain Account Address request
@@ -34,7 +38,7 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
                     method: "eth_requestAccounts"
                 });
 
-                if(accounts.Legnth > 0) {
+                if(accounts.length > 0) {
                     const walletAddress = accounts[0];
 
                     // Step 3: Web3 network check to ensure that the wallet is on the sidra chain (e.g sidra testnet)
@@ -56,39 +60,41 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
                     setStatus("no-wallet");
                     setError("Sidra Wallet not detected. Please install the Sidra Wallet/Extention.");
                 }
-            } catch (err: any) {
+            } catch (err: unknown) {
                 setStatus("error");
-                setError(err.Message || "Failed to connect wallet.");
+                if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Failed to connect wallet.");
+            }
             }
         };
 
         return ( 
 
-            <div className="space-y-3">
-                <Button
-                    onClick={handleConnect}
-                    disabled= {status === "connecting"}
-                    className="flex items-center w-full bg-[#26D578] hover:bg-[#26D578]/90 text-black font-semibold py-7 text-base transition-all hover:shadow-[0_0_30px_rgba(38,213,120,0.3)] group"
-                    >
-                        {status === "connecting" ? (
+           <div className="space-y-3">
+            <Button
+                onClick={handleConnect}
+                disabled={status === "connecting"}
+                className="flex items-center w-full bg-[#26D578] hover:bg-[#26D578]/90 text-black font-semibold py-7 text-base transition-all hover:shadow-[0_0_30px_rgba(38,213,120,0.3)] group"
+            >
+                {status === "connecting" ? (
                     <Loader2 className="w-6 h-6 mr-3 animate-spin" />
                 ) : (
                     <Wallet className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
                 )}
                 {status === "connecting" ? "Connecting..." : "Connect with Sidra Wallet"}
                 <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
+            </Button>
 
-
-                </Button>
-                    {/* User Feedback/Error Message */}
-                    {(status === "error" || status === "no-wallet") && (
-                        <div className="flex items-center gap-2 p-3 rounded-md bg-red-500/10 border border-red-500/20 text-red-500 text-sm animate-in fade-in slide-in-from-top-1">
-                            <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                            <p>{error}</p>
-                        </div>
-                    )}
-
-            </div>
+            {/* User Feedback/Error Message */}
+            {(status === "error" || status === "no-wallet") && (
+                <div className="flex items-center gap-2 p-3 rounded-md bg-red-500/10 border border-red-500/20 text-red-500 text-sm">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    <p>{error}</p>
+                </div>
+            )}
+        </div>
         )
     };
 
