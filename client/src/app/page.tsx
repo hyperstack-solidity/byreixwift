@@ -10,6 +10,7 @@ import { WalletDashboard } from "@/components/pages/WalletDashboard";
 import { EscrowPage } from "@/components/pages/EscrowPage";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { AdContainer } from "@/components/ad-container";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -28,11 +29,19 @@ export default function Home() {
     }
   };
 
+  const handleEmailLogin = (credentials: { email: string; password: string; rememberMe: boolean }) => {
+    // TODO: Call api controller for authentication, store auth token, redirect to dashboard
+ 
+    setTimeout(() => {
+      setIsWalletConnected(true);
+      toast.success(`Welcome back! Signed in as ${credentials.email}`);
+      setCurrentPage("wallet");
+    }, 1000);
+  };
+
   const handleGoogleLogin = () => {
-   // TODO:
-   // login through google  or wallet connect will be implemented here
-    
-    // simulation of successful login for now
+    // TODO: Call api controller for authentication, open google authentication, store auth token, redirect to dashboard
+
     setTimeout(() => {
       setIsWalletConnected(true);
       setIsAuthenticated(true);
@@ -42,7 +51,7 @@ export default function Home() {
   };
 
   const handleWalletConnect = () => {
-  
+    // Reuse the existing wallet connection logic
     handleConnect();
   };
 
@@ -53,7 +62,7 @@ export default function Home() {
     }
 
     setCurrentPage(page);
-   
+    // Scroll to top on navigation
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -67,13 +76,19 @@ export default function Home() {
         onNavigate={handleNavigate}
       />
 
-      <main className="relative">
+      <main className="relative ">
+        <div className="py-4">
+          {/* Ad Placeholder Fallback States*/}
+          <AdContainer simulateError={true} />
+        </div>
+
         {currentPage === "home" && (
           <LandingPage onNavigate={handleNavigate} onConnect={handleConnect} />
         )}
         {currentPage === "login" && (
           <LoginPage 
-            onNavigate={handleNavigate} 
+            onNavigate={handleNavigate}
+            onEmailLogin={handleEmailLogin}
             onGoogleLogin={handleGoogleLogin}
             onWalletConnect={handleWalletConnect}
           />
