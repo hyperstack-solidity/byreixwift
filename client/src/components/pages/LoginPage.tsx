@@ -178,16 +178,6 @@ export function LoginPage({
                                         </div>
                                     </div>
 
-                                    {/* Wallet Connect Button - Emphasized */}
-                                    {/* <Button
-                                        onClick={onWalletConnect}
-                                        className="flex items-center w-full bg-[#26D578] hover:bg-[#26D578]/90 text-black font-semibold py-7 text-base transition-all hover:shadow-[0_0_30px_rgba(38,213,120,0.3)] group"
-                                    >
-                                        <Wallet className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
-                                        Connect with Sidra Wallet
-                                        <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
-                                    </Button> */}
-
                                     <WalletLoginButton onConnect={(address) => onWalletConnect()} />
 
                                     {/* Security Note */}
