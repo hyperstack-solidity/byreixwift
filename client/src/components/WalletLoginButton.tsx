@@ -80,7 +80,13 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
 
 
                 </Button>
-
+                    {/* User Feedback/Error Message */}
+                    {(status === "error" || status === "no-wallet") && (
+                        <div className="flex items-center gap-2 p-3 rounded-md bg-red-500/10 border border-red-500/20 text-red-500 text-sm animate-in fade-in slide-in-from-top-1">
+                            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                            <p>{error}</p>
+                        </div>
+                    )}
 
             </div>
         )
