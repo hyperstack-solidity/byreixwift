@@ -109,7 +109,14 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-5">
+
+
+        <motion.form onSubmit={handleSubmit} className="space-y-5"
+                animate={shakeTrigger > 0 ? {
+                x: [0, -10, 10, -10, 10, 0], // Keyframes for the shake
+                } : {}}
+                transition={{ duration: 0.4 }}
+                key={shakeTrigger}>
             {/* Email Field */}
             <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium text-[#E5E5E5]">
@@ -226,6 +233,6 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
                     </>
                 )}
             </Button>
-        </form>
+        </motion.form>
     );
 }
