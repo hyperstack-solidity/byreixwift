@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { ArrowRight, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 import { motion } from "motion/react";
+import { useShake } from "@/hooks/use-shake";
 
 interface LoginFormProps {
     onSubmit: (credentials: { email: string; password: string; rememberMe: boolean }) => void;
