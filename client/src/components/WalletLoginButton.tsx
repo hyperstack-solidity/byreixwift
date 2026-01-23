@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Wallet, Loader2, AlertCircle, ArrowRight } from "lucide-react";
 
+import { motion } from "motion/react";
+import { useShake } from "@/hooks/use-shake";
+
 interface EthereumProvider {
     
     request: (args: { method: string; params?: unknown[] }) => Promise<string[]>;
@@ -57,6 +60,7 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
 
             }
             else {
+                    
                     setStatus("no-wallet");
                     setError("Sidra Wallet not detected. Please install the Sidra Wallet/Extention.");
                 }
