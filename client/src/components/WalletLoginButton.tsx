@@ -80,7 +80,10 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
 
         return ( 
 
-           <div className="space-y-3">
+           <motion.div
+            animate={shakeTrigger > 0 ? { x: [0, -10, 10, -10, 10, 0] } : {}}
+            transition={{ duration: 0.4 }}
+            key={shakeTrigger} className="space-y-3">
             <Button
                 onClick={handleConnect}
                 disabled={status === "connecting"}
@@ -102,7 +105,7 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
                     <p>{error}</p>
                 </div>
             )}
-        </div>
+        </motion.div>
         )
     };
 
