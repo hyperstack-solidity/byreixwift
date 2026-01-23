@@ -100,6 +100,7 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
                 email: emailError,
                 password: passwordError,
             });
+         
             return;
         }
 
@@ -109,14 +110,15 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
     };
 
     return (
-
-
-        <motion.form onSubmit={handleSubmit} className="space-y-5"
-                animate={shakeTrigger > 0 ? {
-                x: [0, -10, 10, -10, 10, 0], // Keyframes for the shake
-                } : {}}
-                transition={{ duration: 0.4 }}
-                key={shakeTrigger}>
+        <motion.form 
+            onSubmit={handleSubmit} 
+            className="space-y-5"
+            animate={shakeTrigger > 0 ? {
+                x: [0, -10, 10, -10, 10, 0], 
+            } : {}}
+            transition={{ duration: 0.4 }}
+            key={shakeTrigger}
+        >
             {/* Email Field */}
             <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium text-[#E5E5E5]">
@@ -149,7 +151,7 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
             </div>
 
             {/* Password Field */}
-            <div className="space-y-2">
+           <div className="space-y-2">
                 <div className="flex items-center justify-between">
                     <label htmlFor="password" className="text-sm font-medium text-[#E5E5E5]">
                         Password
