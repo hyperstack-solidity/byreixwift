@@ -101,7 +101,7 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
                 email: emailError,
                 password: passwordError,
             });
-            setShakeTrigger((prev) => prev + 1);
+            triggerShake();
             return;
         }
 
