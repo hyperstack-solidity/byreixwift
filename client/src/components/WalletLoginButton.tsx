@@ -21,6 +21,7 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
     ("idle");
 
     const[error, setError] = useState("");
+
     const { shakeTrigger, triggerShake } = useShake();
 
     const handleConnect = async() => {
@@ -67,9 +68,11 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
                 }
             } catch (err: unknown) {
                 setStatus("error");
+                triggerShake();
                 if (err instanceof Error) {
                 setError(err.message);
             } else {
+                triggerShake();
                 setError("Failed to connect wallet.");
             }
             }
