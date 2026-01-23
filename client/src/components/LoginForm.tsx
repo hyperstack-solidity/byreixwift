@@ -29,7 +29,7 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
         password: false,
     });
 
-    const [shakeTrigger,  setShakeTrigger] = useState(0);
+    const { shakeTrigger, triggerShake } = useShake();
 
     // Email validation
     const validateEmail = (email: string): string | undefined => {
