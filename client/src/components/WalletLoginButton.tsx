@@ -21,6 +21,7 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
     ("idle");
 
     const[error, setError] = useState("");
+    const { shakeTrigger, triggerShake } = useShake();
 
     const handleConnect = async() => {
         setStatus("connecting");
@@ -60,7 +61,7 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
 
             }
             else {
-                    
+                    triggerShake();
                     setStatus("no-wallet");
                     setError("Sidra Wallet not detected. Please install the Sidra Wallet/Extention.");
                 }
