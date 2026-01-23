@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { ArrowRight, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
+import { motion } from "motion/react";
+
 interface LoginFormProps {
     onSubmit: (credentials: { email: string; password: string; rememberMe: boolean }) => void;
     onNavigate: (page: string) => void;
