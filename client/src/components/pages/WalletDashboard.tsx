@@ -10,6 +10,8 @@ import { SendPage } from "./SendPage";
 import { TrendViewPage } from "./TrendViewPage";
 import { toast } from "sonner";
 import Image from "next/image";
+import { AdSlot } from "@/components/ads/AdSlot";
+import BannerAd, { BannerAdSize } from "@/components/ads/BannerAd";
 
 export function WalletDashboard() {
     const [activeTab, setActiveTab] = useState("overview");
@@ -274,6 +276,12 @@ export function WalletDashboard() {
                                         </div>
                                     </Card>
                                 ))}
+                                <AdSlot className="mt-8">
+                                    <BannerAd
+                                        imageURL="/ads/medium-rectangle-ad.jpg"
+                                        linkURL="https://example.com"
+                                        size={BannerAdSize.MEDIUM_RECTANGLE} altText={""}                                    />
+                                 </AdSlot>
                             </div>
                         </div>
                     </TabsContent>
