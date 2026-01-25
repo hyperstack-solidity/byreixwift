@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { ArrowRight, Wallet, Shield, Lock } from "lucide-react";
+import { Wallet, Shield, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { LoginForm } from "../LoginForm";
+import { WalletLoginButton } from "../WalletLoginButton";
 
 interface LoginPageProps {
     onEmailLogin: (credentials: { email: string; password: string; rememberMe: boolean }) => void;
@@ -177,15 +178,7 @@ export function LoginPage({
                                         </div>
                                     </div>
 
-                                    {/* Wallet Connect Button - Emphasized */}
-                                    <Button
-                                        onClick={onWalletConnect}
-                                        className="w-full bg-[#26D578] hover:bg-[#26D578]/90 text-black font-semibold py-7 text-base transition-all hover:shadow-[0_0_30px_rgba(38,213,120,0.3)] group"
-                                    >
-                                        <Wallet className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
-                                        Connect Wallet Instead
-                                        <ArrowRight className="w-6 h-6 ml-auto group-hover:translate-x-1 transition-transform" />
-                                    </Button>
+                                    <WalletLoginButton onConnect={(address) => onWalletConnect()} />
 
                                     {/* Security Note */}
                                     <div className=" p-5 rounded-lg bg-[#121212] border border-[#1E1E1E]">
