@@ -70,7 +70,7 @@ export function Footer() {
                         </div>
                     ))}
                 </div>
-                <AdSlot className="mt-8">
+                <AdSlot adId="footer-ads" className="mt-8">
                                     <BannerAd
                                         imageURL="/ads/medium-rectangle-ad.jpg"
                                         linkURL="https://example.com"
