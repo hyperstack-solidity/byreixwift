@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { ArrowRight, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
+import { motion } from "motion/react";
+import { useShake } from "@/hooks/use-shake";
+
 interface LoginFormProps {
     onSubmit: (credentials: { email: string; password: string; rememberMe: boolean }) => void;
     onNavigate: (page: string) => void;
@@ -25,6 +28,8 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
         email: false,
         password: false,
     });
+
+    const { shakeTrigger, triggerShake } = useShake();
 
     // Email validation
     const validateEmail = (email: string): string | undefined => {
@@ -96,6 +101,7 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
                 email: emailError,
                 password: passwordError,
             });
+            triggerShake();
             return;
         }
 
@@ -105,7 +111,15 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <motion.form 
+            onSubmit={handleSubmit} 
+            className="space-y-5"
+            animate={shakeTrigger > 0 ? {
+                x: [0, -10, 10, -10, 10, 0], 
+            } : {}}
+            transition={{ duration: 0.4 }}
+            key={shakeTrigger}
+        >
             {/* Email Field */}
             <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium text-[#E5E5E5]">
@@ -138,7 +152,7 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
             </div>
 
             {/* Password Field */}
-            <div className="space-y-2">
+           <div className="space-y-2">
                 <div className="flex items-center justify-between">
                     <label htmlFor="password" className="text-sm font-medium text-[#E5E5E5]">
                         Password
@@ -222,6 +236,6 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
                     </>
                 )}
             </Button>
-        </form>
+        </motion.form>
     );
 }

@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Wallet, Loader2, AlertCircle, ArrowRight } from "lucide-react";
 
+import { motion } from "motion/react";
+import { useShake } from "@/hooks/use-shake";
+
 interface EthereumProvider {
     
     request: (args: { method: string; params?: unknown[] }) => Promise<string[]>;
@@ -18,6 +21,8 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
     ("idle");
 
     const[error, setError] = useState("");
+
+    const { shakeTrigger, triggerShake } = useShake();
 
     const handleConnect = async() => {
         setStatus("connecting");
@@ -57,14 +62,17 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
 
             }
             else {
+                    triggerShake();
                     setStatus("no-wallet");
                     setError("Sidra Wallet not detected. Please install the Sidra Wallet/Extention.");
                 }
             } catch (err: unknown) {
                 setStatus("error");
+                triggerShake();
                 if (err instanceof Error) {
                 setError(err.message);
             } else {
+                triggerShake();
                 setError("Failed to connect wallet.");
             }
             }
@@ -72,7 +80,10 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
 
         return ( 
 
-           <div className="space-y-3">
+           <motion.div
+            animate={shakeTrigger > 0 ? { x: [0, -10, 10, -10, 10, 0] } : {}}
+            transition={{ duration: 0.4 }}
+            key={shakeTrigger} className="space-y-3">
             <Button
                 onClick={handleConnect}
                 disabled={status === "connecting"}
@@ -94,7 +105,7 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
                     <p>{error}</p>
                 </div>
             )}
-        </div>
+        </motion.div>
         )
     };
 
