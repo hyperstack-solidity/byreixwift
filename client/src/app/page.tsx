@@ -11,14 +11,14 @@ import { EscrowPage } from "@/components/pages/EscrowPage";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { AdContainer } from "@/components/ad-container";
-import { useAuth } from "@/context/AuthContext";
+import { useAuthStore } from "@/store/useAuthStore";
 export default function Home() {
   // Page navigation
   const [currentPage, setCurrentPage] = useState("home");
 
   // Wallet & authentication states
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, login } = useAuthStore();
 
 
   // Navigation handler

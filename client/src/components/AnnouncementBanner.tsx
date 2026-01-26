@@ -2,20 +2,20 @@
 
 import { X, Megaphone, AlertTriangle, Info } from "lucide-react";
 import { useState, useSyncExternalStore } from "react";
-import { useAnnouncements } from "./cms/AnnouncementContext"; 
+import { useActiveAnnouncement } from "@/store/useAnnouncementStore";
 
 function useIsClient() {
   return useSyncExternalStore(
-    () => () => {},
+    () => () => { },
     () => true,
     () => false
   );
 }
 
 export function AnnouncementBanner() {
-  const { activeAnnouncement } = useAnnouncements();
+  const activeAnnouncement = useActiveAnnouncement();
   const isClient = useIsClient();
-  
+
 
   const [dismissedId, setDismissedId] = useState<number | null>(null);
 

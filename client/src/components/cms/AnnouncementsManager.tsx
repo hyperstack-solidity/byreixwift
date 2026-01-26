@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import {Trash2, Edit3, Loader2, X, Megaphone, Calendar, Clock } from 'lucide-react';
+import { Trash2, Edit3, Loader2, X, Megaphone, Calendar, Clock } from 'lucide-react';
 import { Button } from '../ui/button';
-import { useAnnouncements, Announcement } from './AnnouncementContext';
+import { useAnnouncementStore, Announcement } from '@/store/useAnnouncementStore';
 
- //AnnouncementsManager - Handles CRUD operations for site-wide banners.
+//AnnouncementsManager - Handles CRUD operations for site-wide banners.
 
 export const AnnouncementsManager = () => {
-  const { announcements, setAnnouncements } = useAnnouncements();
+  const { announcements, setAnnouncements } = useAnnouncementStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -23,8 +23,8 @@ export const AnnouncementsManager = () => {
       try {
         setIsLoading(true);
         // simulate network latency for smooth UX transition
-        await new Promise(resolve => setTimeout(resolve, 500)); 
-        
+        await new Promise(resolve => setTimeout(resolve, 500));
+
         // API Integration ready
         // const data = await fetch('/api/announcements').then(res => res.json());
         // setAnnouncements(data);
@@ -49,7 +49,7 @@ export const AnnouncementsManager = () => {
   };
 
   const getTypeStyles = (type: string) => {
-    switch(type) {
+    switch (type) {
       case 'warning': return 'text-amber-500 bg-amber-500/10 border-amber-500/20';
       case 'promo': return 'text-(--byreix-green) bg-(--byreix-green)/10 border-(--byreix-green)/20';
       default: return 'text-blue-500 bg-blue-500/10 border-blue-500/20';
@@ -111,18 +111,18 @@ export const AnnouncementsManager = () => {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500"> 
-    {/* header */}
+    <div className="space-y-6 animate-in fade-in duration-500">
+      {/* header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white">Announcements</h1>
           <p className="text-(--byreix-text-secondary) text-sm">Manage global banners and notifications.</p>
         </div>
-        <Button 
+        <Button
           onClick={() => { setCurrentEdit(null); setIsModalOpen(true); }}
           className="bg-(--byreix-green) text-(--byreix-bg) gap-2 font-bold px-6 shrink-0 cursor-pointer"
         >
-           New Announcement
+          New Announcement
         </Button>
       </div>
       {/* announcement list ui container */}
@@ -159,7 +159,7 @@ export const AnnouncementsManager = () => {
                       </div>
                       <div className="flex items-center gap-2 self-end md:self-center shrink-0">
                         <button onClick={() => { setCurrentEdit(ann); setIsModalOpen(true); }} className="p-2 text-zinc-400 hover:text-white cursor-pointer" title='edit'><Edit3 size={18} /></button>
-                        <button onClick={() => handleDelete(ann.id)} className="p-2 text-zinc-400 hover:text-red-500 cursor-pointer" title='delete'><Trash2 size={18}/></button>
+                        <button onClick={() => handleDelete(ann.id)} className="p-2 text-zinc-400 hover:text-red-500 cursor-pointer" title='delete'><Trash2 size={18} /></button>
                       </div>
                     </div>
                   );
@@ -174,7 +174,7 @@ export const AnnouncementsManager = () => {
                   <p className="text-(--byreix-text-secondary) text-xs mt-1 max-w-60">
                     Create your first announcement to start broadcasting updates to your users.
                   </p>
-                  <button 
+                  <button
                     onClick={() => { setCurrentEdit(null); setIsModalOpen(true); }}
                     className="mt-6 text-xs font-bold text-(--byreix-green) hover:underline cursor-pointer"
                   >
@@ -192,7 +192,7 @@ export const AnnouncementsManager = () => {
           <div className="bg-(--byreix-surface) border border-(--byreix-border) w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-6 text-left">
             <div className="flex justify-between items-center border-b border-(--byreix-border) pb-4">
               <h2 className="text-xl font-bold text-white">{currentEdit ? 'Edit' : 'Create'} Announcement</h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-zinc-400 hover:text-white" title='btn'><X size={20}/></button>
+              <button onClick={() => setIsModalOpen(false)} className="text-zinc-400 hover:text-white" title='btn'><X size={20} /></button>
             </div>
 
             <form onSubmit={handleSave} className="space-y-4">
@@ -201,7 +201,7 @@ export const AnnouncementsManager = () => {
                   <label className="text-[10px] font-bold text-zinc-500 uppercase">Title</label>
                   <input name="title" required disabled={isSubmitting} className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors" defaultValue={currentEdit?.title} placeholder="Announcement Title" />
                 </div>
-                
+
                 <div className="col-span-2 space-y-1">
                   <label className="text-[10px] font-bold text-zinc-500 uppercase">Type</label>
                   <select name="type" className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white focus:border-(--byreix-green) transition-colors outline-none" defaultValue={currentEdit?.type || 'info'} title='type-select'>
@@ -217,27 +217,27 @@ export const AnnouncementsManager = () => {
                 </div>
 
                 <div className="col-span-2 flex items-center justify-between mt-2">
-                   <label className="text-[10px] font-bold text-zinc-500 uppercase flex items-center gap-1">
-                     <Clock size={12} /> Schedule Duration
-                   </label>
-                   <div className="flex gap-2 ">
-                     <button type="button" onClick={() => setQuickDate(7)} className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors cursor-pointer">Next 7 Days</button>
-                     <button type="button" onClick={() => setQuickDate(30)} className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors cursor-pointer">30 Days</button>
-                   </div>
+                  <label className="text-[10px] font-bold text-zinc-500 uppercase flex items-center gap-1">
+                    <Clock size={12} /> Schedule Duration
+                  </label>
+                  <div className="flex gap-2 ">
+                    <button type="button" onClick={() => setQuickDate(7)} className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors cursor-pointer">Next 7 Days</button>
+                    <button type="button" onClick={() => setQuickDate(30)} className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors cursor-pointer">30 Days</button>
+                  </div>
                 </div>
 
                 <div className="space-y-1 relative">
                   <label className="text-[10px] font-bold text-zinc-500 uppercase">Start Date</label>
                   <div className="relative group">
                     <Calendar size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-(--byreix-green) transition-colors pointer-events-none" />
-                    <input 
+                    <input
                       ref={startRef}
-                      name="startDate" 
-                      type="date" 
-                      required 
+                      name="startDate"
+                      type="date"
+                      required
                       onClick={(e) => e.currentTarget.showPicker()}
-                      className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 pl-10 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors invert cursor-pointer" 
-                      defaultValue={currentEdit?.startDate || new Date().toISOString().split('T')[0]} 
+                      className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 pl-10 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors invert cursor-pointer"
+                      defaultValue={currentEdit?.startDate || new Date().toISOString().split('T')[0]}
                       title='start-date-input'
                     />
                   </div>
@@ -247,14 +247,14 @@ export const AnnouncementsManager = () => {
                   <label className="text-[10px] font-bold text-zinc-500 uppercase ">End Date</label>
                   <div className="relative group">
                     <Calendar size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-(--byreix-green) transition-colors pointer-events-none " />
-                    <input 
+                    <input
                       ref={endRef}
-                      name="endDate" 
-                      type="date" 
-                      required 
+                      name="endDate"
+                      type="date"
+                      required
                       onClick={(e) => e.currentTarget.showPicker()}
-                      className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 pl-10 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors invert cursor-pointer" 
-                      defaultValue={currentEdit?.endDate} 
+                      className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 pl-10 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors invert cursor-pointer"
+                      defaultValue={currentEdit?.endDate}
                       title='end-date-input'
                     />
                   </div>
