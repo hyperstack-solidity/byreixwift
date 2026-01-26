@@ -5,9 +5,8 @@ import { Plus, Trash2, Edit3, Loader2, X, Megaphone, Calendar, Clock } from 'luc
 import { Button } from '../ui/button';
 import { useAnnouncements, Announcement } from './AnnouncementContext';
 
+ //AnnouncementsManager - Handles CRUD operations for site-wide banners.
 
-// AnnouncementsManager - Handles CRUD operations for site wide banners.
- 
 export const AnnouncementsManager = () => {
   const { announcements, setAnnouncements } = useAnnouncements();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -23,22 +22,23 @@ export const AnnouncementsManager = () => {
     const fetchAnnouncements = async () => {
       try {
         setIsLoading(true);
-        // simulate network latency for UX transition
+        // simulate network latency for smooth UX transition
         await new Promise(resolve => setTimeout(resolve, 500)); 
-        // api preparation
+        
+        // API Integration ready
         // const data = await fetch('/api/announcements').then(res => res.json());
         // setAnnouncements(data);
       } catch {
-     
       } finally {
         setIsLoading(false);
       }
     };
     fetchAnnouncements();
-  }, [setAnnouncements]); // Removed announcements.length to prevent unnecessary re-runs
+  }, [setAnnouncements]);
 
-  
-   // compares current date against announcement window to determine visibility status  
+  /**
+   * logic - compares current date against announcement window to determine visibility status
+   */
   const getAnnouncementStatus = (start: string, end: string) => {
     const now = new Date();
     const startDate = new Date(start);
@@ -56,8 +56,8 @@ export const AnnouncementsManager = () => {
     }
   };
 
-  
-   // directly updates input values for specific timeframes
+  // directly updates input values for specific timeframes (7 or 30 days from today)
+   
   const setQuickDate = (days: number) => {
     const today = new Date().toISOString().split('T')[0];
     const futureDate = new Date();
@@ -76,12 +76,12 @@ export const AnnouncementsManager = () => {
     const start = formData.get('startDate') as string;
     const end = formData.get('endDate') as string;
 
-    // validation - Prevent invalid date ranges
-    // handles both new creation (Date.now() ID) and existing edits
+    // validation - prevent invalid date ranges
     if (new Date(end) < new Date(start)) {
       alert("End date cannot be earlier than start date!");
       return;
     }
+
     setIsSubmitting(true);
     const payload = {
       title: formData.get('title') as string,
@@ -113,8 +113,8 @@ export const AnnouncementsManager = () => {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500"> 
+    {/* header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-         {/* header */}
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white">Site Announcements</h1>
           <p className="text-(--byreix-text-secondary) text-sm">Manage global banners and notifications.</p>
@@ -126,42 +126,63 @@ export const AnnouncementsManager = () => {
           <Plus size={18} /> New Announcement
         </Button>
       </div>
-      {/* announcement list created container */}
+      {/* announcement list ui container */}
       <div className="bg-(--byreix-surface) border border-(--byreix-border) rounded-2xl overflow-hidden">
         <div className="max-h-100 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700">
           {isLoading ? (
-            <div className="flex items-center justify-center h-100"><Loader2 className="animate-spin text-(--byreix-green)" /></div>
+            <div className="flex items-center justify-center h-100">
+              <Loader2 className="animate-spin text-(--byreix-green)" />
+            </div>
           ) : (
             <div className="divide-y divide-(--byreix-border)">
-              {announcements.map((ann) => {
-                const status = getAnnouncementStatus(ann.startDate, ann.endDate);
-                return (
-                  <div key={ann.id} className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-white/2 transition-colors">
-                    <div className="flex gap-4 flex-1 min-w-0">
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${getTypeStyles(ann.type)}`}>
-                        <Megaphone size={18} />
-                      </div>
-                      <div className="min-w-0">
-                        <h3 className="text-white font-bold text-sm truncate">{ann.title}</h3>
-                        <p className="text-(--byreix-text-secondary) text-xs truncate max-w-md">{ann.message}</p>
-                        <div className="flex flex-wrap items-center gap-3 mt-2">
-                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase border ${status.color}`}>
-                            {status.label}
-                          </span>
-                          <div className="flex items-center gap-1 text-[10px] text-zinc-500">
-                            <Calendar size={12} />
-                            {ann.startDate} — {ann.endDate}
+              {announcements.length > 0 ? (
+                announcements.map((ann) => {
+                  const status = getAnnouncementStatus(ann.startDate, ann.endDate);
+                  return (
+                    <div key={ann.id} className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-white/2 transition-colors">
+                      <div className="flex gap-4 flex-1 min-w-0">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${getTypeStyles(ann.type)}`}>
+                          <Megaphone size={18} />
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="text-white font-bold text-sm truncate">{ann.title}</h3>
+                          <p className="text-(--byreix-text-secondary) text-xs truncate max-w-md">{ann.message}</p>
+                          <div className="flex flex-wrap items-center gap-3 mt-2">
+                            <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase border ${status.color}`}>
+                              {status.label}
+                            </span>
+                            <div className="flex items-center gap-1 text-[10px] text-zinc-500">
+                              <Calendar size={12} />
+                              {ann.startDate} — {ann.endDate}
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <div className="flex items-center gap-2 self-end md:self-center shrink-0">
+                        <button onClick={() => { setCurrentEdit(ann); setIsModalOpen(true); }} className="p-2 text-zinc-400 hover:text-white" title='edit'><Edit3 size={18} /></button>
+                        <button onClick={() => handleDelete(ann.id)} className="p-2 text-zinc-400 hover:text-red-500" title='delete'><Trash2 size={18}/></button>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 self-end md:self-center shrink-0">
-                      <button onClick={() => { setCurrentEdit(ann); setIsModalOpen(true); }} className="p-2 text-zinc-400 hover:text-white" title='edit'><Edit3 size={18} /></button>
-                      <button onClick={() => handleDelete(ann.id)} className="p-2 text-zinc-400 hover:text-red-500" title='delete'><Trash2 size={18}/></button>
-                    </div>
+                  );
+                })
+              ) : (
+                /* empty state fallback */
+                <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
+                  <div className="w-16 h-16 bg-zinc-900 rounded-full flex items-center justify-center mb-4 border border-dashed border-zinc-700">
+                    <Megaphone size={24} className="text-zinc-600" />
                   </div>
-                );
-              })}
+                  <h3 className="text-white font-medium">No announcements found</h3>
+                  <p className="text-(--byreix-text-secondary) text-xs mt-1 max-w-60">
+                    Create your first announcement to start broadcasting updates to your users.
+                  </p>
+                  <button 
+                    onClick={() => { setCurrentEdit(null); setIsModalOpen(true); }}
+                    className="mt-6 text-xs font-bold text-(--byreix-green) hover:underline"
+                  >
+                    + Create Now
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
