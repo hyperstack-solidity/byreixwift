@@ -61,7 +61,7 @@ export function AnnouncementBanner() {
           <div className="flex items-center gap-4 shrink-0">
             <button
               onClick={handleDismiss}
-              className="p-1 text-zinc-500 hover:text-white transition-colors rounded-md hover:bg-white/5"
+              className="p-1 text-zinc-500 hover:text-white transition-colors rounded-md hover:bg-white/5 cursor-pointer"
               aria-label="Dismiss"
             >
               <X className="w-4 h-4" />

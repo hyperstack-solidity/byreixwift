@@ -10,8 +10,8 @@ export default function AnnouncementsPage() {
 }
 
 /*
-the AnnouncementContext help us to create the connection
+the AnnouncementContext helps to create the connection
 between AnnouncementBanner.tsx and AnnouncementManager.tsx until a backend is integrated,
 localstorage was used for temporary data persistence until database is integrated,
-the root layout was wrapped with announcement provider so the banner will render site wide with realtime quick update,
+the root layout was wrapped with announcement provider so the banner will render site wide with realtime quick update.
 */

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Edit3, Loader2, X, Megaphone, Calendar, Clock } from 'lucide-react';
+import {Trash2, Edit3, Loader2, X, Megaphone, Calendar, Clock } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useAnnouncements, Announcement } from './AnnouncementContext';
 
@@ -57,7 +57,6 @@ export const AnnouncementsManager = () => {
   };
 
   // directly updates input values for specific timeframes (7 or 30 days from today)
-   
   const setQuickDate = (days: number) => {
     const today = new Date().toISOString().split('T')[0];
     const futureDate = new Date();
@@ -116,14 +115,14 @@ export const AnnouncementsManager = () => {
     {/* header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">Site Announcements</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-white">Announcements</h1>
           <p className="text-(--byreix-text-secondary) text-sm">Manage global banners and notifications.</p>
         </div>
         <Button 
           onClick={() => { setCurrentEdit(null); setIsModalOpen(true); }}
-          className="bg-(--byreix-green) text-(--byreix-bg) gap-2 font-bold px-6 shrink-0"
+          className="bg-(--byreix-green) text-(--byreix-bg) gap-2 font-bold px-6 shrink-0 cursor-pointer"
         >
-          <Plus size={18} /> New Announcement
+           New Announcement
         </Button>
       </div>
       {/* announcement list ui container */}
@@ -159,8 +158,8 @@ export const AnnouncementsManager = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-2 self-end md:self-center shrink-0">
-                        <button onClick={() => { setCurrentEdit(ann); setIsModalOpen(true); }} className="p-2 text-zinc-400 hover:text-white" title='edit'><Edit3 size={18} /></button>
-                        <button onClick={() => handleDelete(ann.id)} className="p-2 text-zinc-400 hover:text-red-500" title='delete'><Trash2 size={18}/></button>
+                        <button onClick={() => { setCurrentEdit(ann); setIsModalOpen(true); }} className="p-2 text-zinc-400 hover:text-white cursor-pointer" title='edit'><Edit3 size={18} /></button>
+                        <button onClick={() => handleDelete(ann.id)} className="p-2 text-zinc-400 hover:text-red-500 cursor-pointer" title='delete'><Trash2 size={18}/></button>
                       </div>
                     </div>
                   );
@@ -177,9 +176,9 @@ export const AnnouncementsManager = () => {
                   </p>
                   <button 
                     onClick={() => { setCurrentEdit(null); setIsModalOpen(true); }}
-                    className="mt-6 text-xs font-bold text-(--byreix-green) hover:underline"
+                    className="mt-6 text-xs font-bold text-(--byreix-green) hover:underline cursor-pointer"
                   >
-                    + Create Now
+                    Create Now
                   </button>
                 </div>
               )}
@@ -221,9 +220,9 @@ export const AnnouncementsManager = () => {
                    <label className="text-[10px] font-bold text-zinc-500 uppercase flex items-center gap-1">
                      <Clock size={12} /> Schedule Duration
                    </label>
-                   <div className="flex gap-2">
-                     <button type="button" onClick={() => setQuickDate(7)} className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors">Next 7 Days</button>
-                     <button type="button" onClick={() => setQuickDate(30)} className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors">30 Days</button>
+                   <div className="flex gap-2 ">
+                     <button type="button" onClick={() => setQuickDate(7)} className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors cursor-pointer">Next 7 Days</button>
+                     <button type="button" onClick={() => setQuickDate(30)} className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-zinc-300 px-2 py-1 rounded transition-colors cursor-pointer">30 Days</button>
                    </div>
                 </div>
 
@@ -237,7 +236,7 @@ export const AnnouncementsManager = () => {
                       type="date" 
                       required 
                       onClick={(e) => e.currentTarget.showPicker()}
-                      className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 pl-10 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors invert" 
+                      className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 pl-10 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors invert cursor-pointer" 
                       defaultValue={currentEdit?.startDate || new Date().toISOString().split('T')[0]} 
                       title='start-date-input'
                     />
@@ -245,16 +244,16 @@ export const AnnouncementsManager = () => {
                 </div>
 
                 <div className="space-y-1 relative">
-                  <label className="text-[10px] font-bold text-zinc-500 uppercase">End Date</label>
+                  <label className="text-[10px] font-bold text-zinc-500 uppercase ">End Date</label>
                   <div className="relative group">
-                    <Calendar size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-(--byreix-green) transition-colors pointer-events-none" />
+                    <Calendar size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-(--byreix-green) transition-colors pointer-events-none " />
                     <input 
                       ref={endRef}
                       name="endDate" 
                       type="date" 
                       required 
                       onClick={(e) => e.currentTarget.showPicker()}
-                      className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 pl-10 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors invert" 
+                      className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 pl-10 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors invert cursor-pointer" 
                       defaultValue={currentEdit?.endDate} 
                       title='end-date-input'
                     />
@@ -263,8 +262,8 @@ export const AnnouncementsManager = () => {
               </div>
 
               <div className="flex gap-3 pt-4 border-t border-(--byreix-border)">
-                <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)} className="flex-1 text-white border-zinc-800" disabled={isSubmitting}>Cancel</Button>
-                <Button type="submit" className="flex-1 bg-(--byreix-green) text-(--byreix-bg) font-bold" disabled={isSubmitting}>
+                <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)} className="flex-1 text-white border-zinc-800 cursor-pointer" disabled={isSubmitting}>Cancel</Button>
+                <Button type="submit" className="flex-1 bg-(--byreix-green) text-(--byreix-bg) font-bold cursor-pointer" disabled={isSubmitting}>
                   {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : 'Save Announcement'}
                 </Button>
               </div>
