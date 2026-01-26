@@ -1,17 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "../ui/button";
-import { Card } from "../ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Button, Card, Tabs, TabsContent, TabsList, TabsTrigger } from "../ui";
 import { ArrowUpRight, ArrowDownLeft, TrendingUp, Eye, EyeOff, Copy, ExternalLink } from "lucide-react";
 import { SwapPage } from "./SwapPage";
 import { SendPage } from "./SendPage";
 import { TrendViewPage } from "./TrendViewPage";
 import { toast } from "sonner";
 import Image from "next/image";
-import { AdSlot } from "@/components/ads/AdSlot";
-import BannerAd, { BannerAdSize } from "@/components/ads/BannerAd";
+import { AdSlot, BannerAd, BannerAdSize } from "@/components/ads";
 
 export function WalletDashboard() {
     const [activeTab, setActiveTab] = useState("overview");
@@ -280,8 +277,8 @@ export function WalletDashboard() {
                                     <BannerAd
                                         imageURL="/ads/medium-rectangle-ad.jpg"
                                         linkURL="https://example.com"
-                                        size={BannerAdSize.MEDIUM_RECTANGLE} altText={""}                                    />
-                                 </AdSlot>
+                                        size={BannerAdSize.MEDIUM_RECTANGLE} altText={""} />
+                                </AdSlot>
                             </div>
                         </div>
                     </TabsContent>

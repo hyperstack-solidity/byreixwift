@@ -1,7 +1,6 @@
 import { ByreixLogo } from "./ByreixLogo";
 import { Github, Twitter, Send } from "lucide-react";
-import { AdSlot } from "@/components/ads/AdSlot";
-import BannerAd, { BannerAdSize } from "@/components/ads/BannerAd";
+import { AdSlot, BannerAd, BannerAdSize } from "@/components/ads";
 
 export function Footer() {
     const footerLinks = [
@@ -71,11 +70,11 @@ export function Footer() {
                     ))}
                 </div>
                 <AdSlot adId="footer-ads" className="mt-8">
-                                    <BannerAd
-                                        imageURL="/ads/medium-rectangle-ad.jpg"
-                                        linkURL="https://example.com"
-                                        size={BannerAdSize.MEDIUM_RECTANGLE} altText={""}                                    />
-                                 </AdSlot>
+                    <BannerAd
+                        imageURL="/ads/medium-rectangle-ad.jpg"
+                        linkURL="https://example.com"
+                        size={BannerAdSize.MEDIUM_RECTANGLE} altText={""} />
+                </AdSlot>
 
                 {/* Bottom Bar */}
                 <div className="mt-12 pt-8 border-t border-[#1E1E1E] flex flex-col sm:flex-row justify-between items-center gap-4">

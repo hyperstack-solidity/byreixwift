@@ -1,19 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "../ui/card";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { Card, Button, Input, Label, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui";
 import { Send, QrCode, Scan, ChevronDown, AlertCircle, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from "../ui/dialog";
 
 export function SendPage() {
     const [recipient, setRecipient] = useState("");

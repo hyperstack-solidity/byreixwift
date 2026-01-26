@@ -25,7 +25,7 @@ const sizeClasses: Record<BannerAdSize, string> = {
 };
 
 
-const BannerAd: React.FC<BannerAdProps> = ({
+export const BannerAd: React.FC<BannerAdProps> = ({
     imageURL,
     linkURL,
     altText = "Advertisemen",
@@ -63,5 +63,3 @@ const BannerAd: React.FC<BannerAdProps> = ({
         </div>
     );
 };
-
-export default BannerAd;

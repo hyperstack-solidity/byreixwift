@@ -2,7 +2,7 @@
 
 import { X, Megaphone, AlertTriangle, Info } from "lucide-react";
 import { useState, useSyncExternalStore } from "react";
-import { useActiveAnnouncement } from "@/store/useAnnouncementStore";
+import { useActiveAnnouncement } from "@/store";
 
 function useIsClient() {
   return useSyncExternalStore(

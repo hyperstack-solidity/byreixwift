@@ -1,4 +1,4 @@
-import { CMSLayout } from "@/components/cms/CMSLayout";
+import { CMSLayout } from "@/components/cms";
 
 export default function RootCMSLayout({
   children,

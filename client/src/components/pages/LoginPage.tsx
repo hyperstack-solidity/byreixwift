@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "../ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui";
 import { Wallet, Shield, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { LoginForm } from "../LoginForm";
@@ -93,8 +92,8 @@ export function LoginPage({
                                 <button
                                     onClick={() => setActiveTab("email")}
                                     className={`relative z-10 flex-1 py-2.5 rounded-md text-sm font-medium transition-colors ${activeTab === "email"
-                                            ? "text-black"
-                                            : "text-[#A0A0A0] hover:text-white"
+                                        ? "text-black"
+                                        : "text-[#A0A0A0] hover:text-white"
                                         }`}
                                 >
                                     Email / Password
@@ -102,8 +101,8 @@ export function LoginPage({
                                 <button
                                     onClick={() => setActiveTab("social")}
                                     className={`relative z-10 flex-1 py-2.5 rounded-md text-sm font-medium transition-colors ${activeTab === "social"
-                                            ? "text-black"
-                                            : "text-[#A0A0A0] hover:text-white"
+                                        ? "text-black"
+                                        : "text-[#A0A0A0] hover:text-white"
                                         }`}
                                 >
                                     Social / Wallet
