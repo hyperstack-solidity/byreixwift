@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ByreixLogo } from "./ByreixLogo";
-import { Button } from "./ui/button";
+import { Button } from "./ui";
 import { Wallet, Menu } from "lucide-react";
 import { useState } from "react";
 
@@ -59,11 +59,10 @@ export function Navbar({
                 <button
                   key={link.value}
                   onClick={() => onNavigate?.(link.value)}
-                  className={`text-sm transition-colors cursor-pointer ${
-                    currentPage === link.value
+                  className={`text-sm transition-colors cursor-pointer ${currentPage === link.value
                       ? "text-[#26D578]"
                       : "text-[#A0A0A0] hover:text-white"
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </button>
@@ -105,7 +104,7 @@ export function Navbar({
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 link.isRoute ? (
-                  
+
                   <Link key={link.value} href={link.href || "#"}>
                     <button
                       className="text-left px-2 py-2 hover:text-white text-sm transition-colors text-[#A0A0A0] cursor-pointer"
@@ -121,11 +120,10 @@ export function Navbar({
                       onNavigate?.(link.value);
                       setMobileMenuOpen(false);
                     }}
-                    className={`text-left px-2 py-2 text-sm transition-colors cursor-pointer ${
-                      currentPage === link.value
+                    className={`text-left px-2 py-2 text-sm transition-colors cursor-pointer ${currentPage === link.value
                         ? "text-[#26D578]"
                         : "text-[#A0A0A0] hover:text-white "
-                    }`}
+                      }`}
                   >
                     {link.label}
                   </button>

@@ -1,5 +1,5 @@
 import React from "react";
-import { AnnouncementsManager } from "@/components/cms/AnnouncementsManager";
+import { AnnouncementsManager } from "@/components/cms";
 
 export default function AnnouncementsPage() {
   return (

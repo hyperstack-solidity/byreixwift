@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { ArrowRight, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 import { motion } from "motion/react";
-import { useShake } from "@/hooks/use-shake";
+import { useShake } from "@/hooks";
 
 interface LoginFormProps {
     onSubmit: (credentials: { email: string; password: string; rememberMe: boolean }) => void;
@@ -57,7 +57,7 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
     // Handle field blur
     const handleBlur = (field: "email" | "password") => {
         setTouched({ ...touched, [field]: true });
-        
+
         if (field === "email") {
             const emailError = validateEmail(email);
             setErrors({ ...errors, email: emailError });
@@ -111,11 +111,11 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
     };
 
     return (
-        <motion.form 
-            onSubmit={handleSubmit} 
+        <motion.form
+            onSubmit={handleSubmit}
             className="space-y-5"
             animate={shakeTrigger > 0 ? {
-                x: [0, -10, 10, -10, 10, 0], 
+                x: [0, -10, 10, -10, 10, 0],
             } : {}}
             transition={{ duration: 0.4 }}
             key={shakeTrigger}
@@ -135,11 +135,10 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
                         value={email}
                         onChange={(e) => handleEmailChange(e.target.value)}
                         onBlur={() => handleBlur("email")}
-                        className={`w-full mt-4 pl-11 pr-4 py-3 bg-[#121212] border rounded-lg text-white placeholder:text-[#707070] focus:outline-none focus:ring-2 transition-all ${
-                            errors.email && touched.email
+                        className={`w-full mt-4 pl-11 pr-4 py-3 bg-[#121212] border rounded-lg text-white placeholder:text-[#707070] focus:outline-none focus:ring-2 transition-all ${errors.email && touched.email
                                 ? "border-red-500 focus:ring-red-500/50 focus:border-red-500"
                                 : "border-[#1E1E1E] focus:ring-[#26D578]/50 focus:border-[#26D578]"
-                        }`}
+                            }`}
                         placeholder="you@example.com"
                         disabled={isLoading}
                     />
@@ -152,7 +151,7 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
             </div>
 
             {/* Password Field */}
-           <div className="space-y-2">
+            <div className="space-y-2">
                 <div className="flex items-center justify-between">
                     <label htmlFor="password" className="text-sm font-medium text-[#E5E5E5]">
                         Password
@@ -175,11 +174,10 @@ export function LoginForm({ onSubmit, onNavigate, isLoading = false }: LoginForm
                         value={password}
                         onChange={(e) => handlePasswordChange(e.target.value)}
                         onBlur={() => handleBlur("password")}
-                        className={`w-full mt-2 pl-11 pr-12 py-3 bg-[#121212] border rounded-lg text-white placeholder:text-[#707070] focus:outline-none focus:ring-2 transition-all ${
-                            errors.password && touched.password
+                        className={`w-full mt-2 pl-11 pr-12 py-3 bg-[#121212] border rounded-lg text-white placeholder:text-[#707070] focus:outline-none focus:ring-2 transition-all ${errors.password && touched.password
                                 ? "border-red-500 focus:ring-red-500/50 focus:border-red-500"
                                 : "border-[#1E1E1E] focus:ring-[#26D578]/50 focus:border-[#26D578]"
-                        }`}
+                            }`}
                         placeholder="••••••••"
                         disabled={isLoading}
                     />

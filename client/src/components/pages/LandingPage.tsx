@@ -1,11 +1,10 @@
 "use client";
 
-import { Button } from "../ui/button";
+import { Button } from "../ui";
 import { ArrowRight, Repeat, Send, TrendingUp, ShieldCheck, Zap, Lock, Wallet, Users, Globe } from "lucide-react";
 import { motion } from "motion/react";
 import { FloatingCard } from "../FloatingCard";
-import { AdSlot } from "../ads/AdSlot";
-import BannerAd, { BannerAdSize } from "../ads/BannerAd";
+import { AdSlot, BannerAd, BannerAdSize } from "../ads";
 
 interface LandingPageProps {
     onNavigate: (page: string) => void;
@@ -67,7 +66,7 @@ export function LandingPage({ onNavigate, onConnect }: LandingPageProps) {
     return (
         <div className="min-h-screen">
             {/* Hero Section */}
-           
+
             <section className="relative min-h-screen flex items-center pt-20 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
                 {/* Background - Earth-like glow */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -98,7 +97,7 @@ export function LandingPage({ onNavigate, onConnect }: LandingPageProps) {
                         }}
                     />
                 </div>
-                 
+
 
                 <div className="max-w-7xl mx-auto relative w-full">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -165,7 +164,7 @@ export function LandingPage({ onNavigate, onConnect }: LandingPageProps) {
                                 ))}
                             </div>
                         </motion.div>
-                                
+
                         {/* Right: Floating Card */}
                         <motion.div
                             initial={{ opacity: 0, x: 30, scale: 0.95 }}
@@ -178,12 +177,12 @@ export function LandingPage({ onNavigate, onConnect }: LandingPageProps) {
                     </div>
                 </div>
             </section>
-             <AdSlot adId="Hero-ads">
-                    <BannerAd
+            <AdSlot adId="Hero-ads">
+                <BannerAd
                     imageURL="/ads/leaderboard-ad.jpg"
                     linkURL="https://example.com"
-                    size={BannerAdSize.LEADERBOARD} altText={""}        />
-                </AdSlot>
+                    size={BannerAdSize.LEADERBOARD} altText={""} />
+            </AdSlot>
 
             {/* Features Grid */}
             <section className="py-24 px-4 sm:px-6 lg:px-8">

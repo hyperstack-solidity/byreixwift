@@ -1,17 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { AnnouncementBanner } from "@/components/AnnouncementBanner";
-import { LandingPage } from "@/components/pages/LandingPage";
-import { LoginPage } from "@/components/pages/LoginPage";
-import { WalletDashboard } from "@/components/pages/WalletDashboard";
-import { EscrowPage } from "@/components/pages/EscrowPage";
-import { Toaster } from "@/components/ui/sonner";
+import { Navbar, Footer, AnnouncementBanner, AdContainer } from "@/components";
+import { LandingPage, LoginPage, WalletDashboard, EscrowPage } from "@/components/pages";
+import { Toaster } from "@/components/ui/sonner"; // Keep specific if sonner has default/named mix not in ui/index? ui/index exports sonner. sonner usually exports Toaster named.
 import { toast } from "sonner";
-import { AdContainer } from "@/components/ad-container";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/store";
 export default function Home() {
   // Page navigation
   const [currentPage, setCurrentPage] = useState("home");

@@ -1,10 +1,10 @@
-import { BannerAdsManager } from '@/components/cms/BannerAdsManager'
+import { BannerAdsManager } from '@/components/cms'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <BannerAdsManager/>
+      <BannerAdsManager />
     </div>
   )
 }

@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "../ui/card";
-import { Button } from "../ui/button";
+import { Card, Button } from "../ui";
 import { TrendingUp, TrendingDown, ChevronDown } from "lucide-react";
 import {
     AreaChart,

@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "../ui/card";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { Card, Button, Input } from "../ui";
 import { ArrowDownUp, Settings, ChevronDown, Info } from "lucide-react";
 import { toast } from "sonner";
 

@@ -5,10 +5,10 @@ import { Button } from "./ui/button";
 import { Wallet, Loader2, AlertCircle, ArrowRight } from "lucide-react";
 
 import { motion } from "motion/react";
-import { useShake } from "@/hooks/use-shake";
+import { useShake } from "@/hooks";
 
 interface EthereumProvider {
-    
+
     request: (args: { method: string; params?: unknown[] }) => Promise<string[]>;
 }
 
@@ -16,15 +16,15 @@ interface WalletLoginButtonProps {
     onConnect: (address: string) => void;
 }
 
-export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
+export function WalletLoginButton({ onConnect }: WalletLoginButtonProps) {
     const [status, setStatus] = useState<"idle" | "connecting" | "error" | "no-wallet">
-    ("idle");
+        ("idle");
 
-    const[error, setError] = useState("");
+    const [error, setError] = useState("");
 
     const { shakeTrigger, triggerShake } = useShake();
 
-    const handleConnect = async() => {
+    const handleConnect = async () => {
         setStatus("connecting");
         setError("");
 
@@ -39,11 +39,11 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
                 // STEP 2: Sidra Chain Account Address request
                 // There should be a popup where the sidra chain address will be shown
 
-                const accounts = await provider.request( {
+                const accounts = await provider.request({
                     method: "eth_requestAccounts"
                 });
 
-                if(accounts.length > 0) {
+                if (accounts.length > 0) {
                     const walletAddress = accounts[0];
 
                     // Step 3: Web3 network check to ensure that the wallet is on the sidra chain (e.g sidra testnet)
@@ -55,32 +55,32 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
                     // send signature and address to the ASP.NET API Controller to get JWT.
 
                     // SUCCESSFUL AUTHENTICATION
-                    
+
                     setStatus("idle");
-                    onConnect(walletAddress); 
-                } 
+                    onConnect(walletAddress);
+                }
 
             }
             else {
-                    triggerShake();
-                    setStatus("no-wallet");
-                    setError("Sidra Wallet not detected. Please install the Sidra Wallet/Extention.");
-                }
-            } catch (err: unknown) {
-                setStatus("error");
                 triggerShake();
-                if (err instanceof Error) {
+                setStatus("no-wallet");
+                setError("Sidra Wallet not detected. Please install the Sidra Wallet/Extention.");
+            }
+        } catch (err: unknown) {
+            setStatus("error");
+            triggerShake();
+            if (err instanceof Error) {
                 setError(err.message);
             } else {
                 triggerShake();
                 setError("Failed to connect wallet.");
             }
-            }
-        };
+        }
+    };
 
-        return ( 
+    return (
 
-           <motion.div
+        <motion.div
             animate={shakeTrigger > 0 ? { x: [0, -10, 10, -10, 10, 0] } : {}}
             transition={{ duration: 0.4 }}
             key={shakeTrigger} className="space-y-3">
@@ -106,8 +106,8 @@ export function WalletLoginButton({onConnect}: WalletLoginButtonProps) {
                 </div>
             )}
         </motion.div>
-        )
-    };
+    )
+};
 
 
 
