@@ -276,7 +276,7 @@ export function WalletDashboard() {
                                         </div>
                                     </Card>
                                 ))}
-                                <AdSlot className="mt-8">
+                                <AdSlot adId="wallet-sidebar-ad" className="mt-8">
                                     <BannerAd
                                         imageURL="/ads/medium-rectangle-ad.jpg"
                                         linkURL="https://example.com"

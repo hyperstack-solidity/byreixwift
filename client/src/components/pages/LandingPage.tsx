@@ -178,7 +178,7 @@ export function LandingPage({ onNavigate, onConnect }: LandingPageProps) {
                     </div>
                 </div>
             </section>
-             <AdSlot>
+             <AdSlot adId="Hero-ads">
                     <BannerAd
                     imageURL="/ads/leaderboard-ad.jpg"
                     linkURL="https://example.com"
