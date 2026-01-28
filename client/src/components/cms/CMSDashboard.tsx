@@ -1,5 +1,5 @@
 import React from 'react';
-import CMSOverview from './CMSOverview';
+import CMSOverview from '@/components/cms/CMSOverview';
 
 export const CMSDashboard = () => {
   return (

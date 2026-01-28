@@ -2,7 +2,7 @@
 
 import React from "react";
 import { MousePointer2, BarChart3, Megaphone, Clock, ArrowUpRight,} from "lucide-react";
-import { Button, Card, CardHeader, CardTitle, CardContent } from "../ui";
+import { Button, Card, CardHeader, CardTitle, CardContent } from "@/components/ui";
 import { useAnnouncementStore } from "@/store";
 import { useRouter } from "next/navigation";
 
