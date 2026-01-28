@@ -192,19 +192,19 @@ export const AnnouncementsManager = () => {
           <div className="bg-(--byreix-surface) border border-(--byreix-border) w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-6 text-left">
             <div className="flex justify-between items-center border-b border-(--byreix-border) pb-4">
               <h2 className="text-xl font-bold text-white">{currentEdit ? 'Edit' : 'Create'} Announcement</h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-zinc-400 hover:text-white" title='btn'><X size={20} /></button>
+              <button onClick={() => setIsModalOpen(false)} className="text-zinc-400 hover:text-white cursor-pointer" title='btn'><X size={20} /></button>
             </div>
 
             <form onSubmit={handleSave} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2 space-y-1">
                   <label className="text-[10px] font-bold text-zinc-500 uppercase">Title</label>
-                  <input name="title" required disabled={isSubmitting} className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors" defaultValue={currentEdit?.title} placeholder="Announcement Title" />
+                  <input name="title" required disabled={isSubmitting} className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors cursor-pointer" defaultValue={currentEdit?.title} placeholder="Announcement Title" />
                 </div>
 
                 <div className="col-span-2 space-y-1">
                   <label className="text-[10px] font-bold text-zinc-500 uppercase">Type</label>
-                  <select name="type" className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white focus:border-(--byreix-green) transition-colors outline-none" defaultValue={currentEdit?.type || 'info'} title='type-select'>
+                  <select name="type" className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white focus:border-(--byreix-green) transition-colors outline-none cursor-pointer" defaultValue={currentEdit?.type || 'info'} title='type-select'>
                     <option value="info">Information</option>
                     <option value="warning">Warning</option>
                     <option value="promo">Promotion</option>
@@ -213,7 +213,7 @@ export const AnnouncementsManager = () => {
 
                 <div className="col-span-2 space-y-1">
                   <label className="text-[10px] font-bold text-zinc-500 uppercase">Message</label>
-                  <textarea name="message" required rows={3} className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors resize-none" defaultValue={currentEdit?.message} placeholder="Details..." />
+                  <textarea name="message" required rows={3} className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white outline-none focus:border-(--byreix-green) transition-colors resize-none " defaultValue={currentEdit?.message} placeholder="Details..." />
                 </div>
 
                 <div className="col-span-2 flex items-center justify-between mt-2">
