@@ -1,6 +1,6 @@
 import React from 'react';
-import { Sidebar } from './Sidebar';
-import { AdminHeader } from './AdminHeader';
+import { Sidebar } from '@/components/cms';
+import { AdminHeader } from '@/components/cms';
 
 interface CMSLayoutProps {
   children: React.ReactNode;

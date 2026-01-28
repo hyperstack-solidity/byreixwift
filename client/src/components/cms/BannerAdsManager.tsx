@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, ExternalLink, Trash2, Edit3, Loader2, X } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui';
 import Image from 'next/image';
 
 // interface def

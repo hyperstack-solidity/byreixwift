@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
-import { ByreixLogo } from "../ByreixLogo";
+import { ByreixLogo } from "@/components";
 
 const navLinks = [
   { name: "Dashboard Overview", href: "/cms" },

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Trash2, Edit3, Loader2, X, Megaphone, Calendar, Clock } from 'lucide-react';
-import { Button } from '../ui';
+import { Button } from '@/components/ui';
 import { useAnnouncementStore, Announcement } from '@/store';
 
 //AnnouncementsManager - Handles CRUD operations for site-wide banners.
