@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, ExternalLink, Trash2, Edit3, Loader2, X } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Plus, Search, ExternalLink, Trash2, Edit3, Loader2 } from 'lucide-react';
+import { Button } from '../ui/button';
 import Image from 'next/image';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../ui/dialog';
+import { BannerAdForm, BannerAdFormData } from '../ads/BannerAdForm';
+import { BannerAdSize } from '../ads/BannerAd';
 
 // interface def
 interface Ad {
@@ -14,20 +17,17 @@ interface Ad {
   impressions: number;
   clicks: number;
   thumbnail: string;
+  // New fields to match the form
+  size?: BannerAdSize;
+  placements?: string[];
+  startDate?: string;
+  endDate?: string;
 }
 
 // mock data for ads
 const initialAds: Ad[] = [
-  { id: 1, name: 'Sidra Chain', url: 'https://Sidra.com/news', status: 'active', impressions: 1240, clicks: 88, thumbnail: '/mockThumbnail.png' },
-  { id: 2, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
-  { id: 3, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
-  { id: 4, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
-  { id: 5, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
-  { id: 6, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
-  { id: 7, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
-  { id: 8, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
-  { id: 9, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
-  { id: 10, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png' },
+  { id: 1, name: 'Sidra Chain', url: 'https://Sidra.com/news', status: 'active', impressions: 1240, clicks: 88, thumbnail: '/mockThumbnail.png', size: BannerAdSize.LEADERBOARD, placements: ['homepage_top'], startDate: '2024-01-01', endDate: '2024-12-31' },
+  { id: 2, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png', size: BannerAdSize.MEDIUM_RECTANGLE, placements: ['sidebar_right'], startDate: '2024-02-01', endDate: '2024-03-01' },
 ];
 
 export const BannerAdsManager = () => {
@@ -35,7 +35,7 @@ export const BannerAdsManager = () => {
   const [ads, setAds] = useState<Ad[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingAd, setEditingAd] = useState<Ad | null>(null);
 
   useEffect(() => {
@@ -48,10 +48,10 @@ export const BannerAdsManager = () => {
 
   // toggle status logic
   const handleToggleStatus = (id: number): void => {
-    setAds((prevAds) => 
-      prevAds.map((ad) => 
-        ad.id === id 
-          ? { ...ad, status: ad.status === 'active' ? 'inactive' : 'active' } 
+    setAds((prevAds) =>
+      prevAds.map((ad) =>
+        ad.id === id
+          ? { ...ad, status: ad.status === 'active' ? 'inactive' : 'active' }
           : ad
       )
     );
@@ -64,23 +64,38 @@ export const BannerAdsManager = () => {
     }
   };
 
-  // Edit action logic preparation
-  const startEditing = (ad: Ad): void => {
-    setEditingAd({ ...ad });
-    setIsEditModalOpen(true);
+  // Edit / Create Logic
+  const openCreateModal = () => {
+    setEditingAd(null);
+    setIsModalOpen(true);
   };
 
-  const handleSaveEdit = (e: React.FormEvent): void => {
-    e.preventDefault();
+  const startEditing = (ad: Ad): void => {
+    setEditingAd(ad);
+    setIsModalOpen(true);
+  };
+
+  const handleFormSubmit = (data: BannerAdFormData & { thumbnail?: string }) => {
     if (editingAd) {
-      setAds(prev => prev.map(ad => ad.id === editingAd.id ? editingAd : ad));
-      setIsEditModalOpen(false);
-      setEditingAd(null);
+      // Update existing
+      setAds(prev => prev.map(ad => ad.id === editingAd.id ? { ...ad, ...data } : ad));
+    } else {
+      // Create new
+      const newAd: Ad = {
+        id: Date.now(), // simple mock ID
+        ...data,
+        impressions: 0,
+        clicks: 0,
+        thumbnail: data.thumbnail || '/mockThumbnail.png',
+      };
+      setAds(prev => [newAd, ...prev]);
     }
+    setIsModalOpen(false);
+    setEditingAd(null);
   };
 
   // search filter logic
-  const filteredAds = ads.filter((ad) => 
+  const filteredAds = ads.filter((ad) =>
     ad.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     ad.url.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -93,7 +108,11 @@ export const BannerAdsManager = () => {
           <h1 className="text-2xl font-bold tracking-tight text-white">Banner Ads Management</h1>
           <p className="text-(--byreix-text-secondary) text-sm">Monitor and manage your platform advertisements.</p>
         </div>
-        <Button className="bg-(--byreix-green) hover:opacity-90 text-(--byreix-bg) gap-2 font-bold px-6 w-full md:w-auto cursor-pointer" title='create new ad btn'>
+        <Button
+          onClick={openCreateModal}
+          className="bg-(--byreix-green) hover:opacity-90 text-(--byreix-bg) gap-2 font-bold px-6 w-full md:w-auto cursor-pointer"
+          title='create new ad btn'
+        >
           <Plus size={18} />
           Create New Ad
         </Button>
@@ -103,7 +122,7 @@ export const BannerAdsManager = () => {
       <div className="flex items-center gap-4 p-4 bg-(--byreix-surface) border border-(--byreix-border) rounded-xl">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-(--byreix-text-secondary)" size={18} />
-          <input 
+          <input
             title='search ads'
             type="text"
             placeholder="Search by ad name or URL..."
@@ -143,11 +162,11 @@ export const BannerAdsManager = () => {
                   <div className="flex justify-between items-center bg-(--byreix-bg) p-3 rounded-lg border border-(--byreix-border)">
                     <div className="flex items-center gap-3">
                       <label className="relative inline-flex items-center cursor-pointer">
-                        <input 
+                        <input
                           title='toggle status'
-                          type="checkbox" 
-                          className="sr-only peer" 
-                          checked={ad.status === 'active'} 
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={ad.status === 'active'}
                           onChange={() => handleToggleStatus(ad.id)}
                         />
                         <div className="w-8 h-4 bg-white/10 rounded-full peer peer-checked:bg-(--byreix-green) after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-4"></div>
@@ -168,7 +187,7 @@ export const BannerAdsManager = () => {
             <div className="hidden md:block">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse table-fixed">
-                  <thead className="bg-[#1A1A1A] border-b border-(--byreix-border) sticky top-0 z-10"> 
+                  <thead className="bg-[#1A1A1A] border-b border-(--byreix-border) sticky top-0 z-10">
                     <tr>
                       <th className="w-[12%] px-6 py-5 text-[10px] uppercase tracking-widest text-(--byreix-text-secondary) font-bold">Thumbnail</th>
                       <th className="w-[43%] px-6 py-5 text-[10px] uppercase tracking-widest text-(--byreix-text-secondary) font-bold">Ad Details</th>
@@ -182,7 +201,7 @@ export const BannerAdsManager = () => {
 
               <div className="max-h-100 overflow-y-auto scrollbar-thin scrollbar-thumb-(--byreix-border) scrollbar-track-transparent">
                 <table className="w-full text-left border-collapse table-fixed">
-                  <tbody className="divide-y divide-(--byreix-border)"> 
+                  <tbody className="divide-y divide-(--byreix-border)">
                     {filteredAds.map((ad) => (
                       <tr key={ad.id} className="hover:bg-white/2 transition-colors group">
                         <td className="w-[12%] px-6 py-4">
@@ -201,11 +220,11 @@ export const BannerAdsManager = () => {
                         <td className="w-[15%] px-6 py-4">
                           <div className="flex items-center gap-3">
                             <label className="relative inline-flex items-center cursor-pointer">
-                              <input 
+                              <input
                                 title='toggle status'
-                                type="checkbox" 
-                                className="sr-only peer" 
-                                checked={ad.status === 'active'} 
+                                type="checkbox"
+                                className="sr-only peer"
+                                checked={ad.status === 'active'}
                                 onChange={() => handleToggleStatus(ad.id)}
                               />
                               <div className="w-8 h-4 bg-white/10 rounded-full peer peer-checked:bg-(--byreix-green) after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:after:translate-x-4"></div>
@@ -231,10 +250,10 @@ export const BannerAdsManager = () => {
                         <td className="w-[15%] px-6 py-4 text-right">
                           <div className="flex items-center justify-end gap-4">
                             <button type="button" onClick={() => startEditing(ad)} className="text-(--byreix-text-secondary) hover:text-white transition-colors cursor-pointer" title="Edit Ad"><Edit3 size={17} /></button>
-                            <button 
+                            <button
                               type="button"
                               onClick={() => handleDelete(ad.id)}
-                              className="text-(--byreix-text-secondary) hover:text-red-500 transition-colors cursor-pointer" 
+                              className="text-(--byreix-text-secondary) hover:text-red-500 transition-colors cursor-pointer"
                               title="Delete Ad"
                             >
                               <Trash2 size={17} />
@@ -258,45 +277,25 @@ export const BannerAdsManager = () => {
         )}
       </div>
 
-      {/* Edit Modal Overlay */}
-      {isEditModalOpen && editingAd && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 p-4">
-          <div className="bg-(--byreix-surface) border border-(--byreix-border) w-full max-w-md rounded-2xl shadow-2xl p-6 space-y-6">
-            <div className="flex justify-between items-center border-b border-(--byreix-border) pb-4">
-              <h2 className="text-xl font-bold text-white">Edit Advertisement</h2>
-              <button type="button" onClick={() => setIsEditModalOpen(false)} className="text-(--byreix-text-secondary) hover:text-white" title='edit btn'><X size={20} /></button>
-            </div>
-
-            <form onSubmit={handleSaveEdit} className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-(--byreix-text-secondary) uppercase">Ad Name</label>
-                <input 
-                  title='edit name'
-                  className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white focus:ring-1 focus:ring-(--byreix-green) outline-none"
-                  value={editingAd.name}
-                  onChange={(e) => setEditingAd({...editingAd, name: e.target.value})}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-(--byreix-text-secondary) uppercase">Destination URL</label>
-                <input 
-                  title='edit url'
-                  className="w-full bg-(--byreix-bg) border border-(--byreix-border) rounded-lg p-3 text-sm text-white focus:ring-1 focus:ring-(--byreix-green) outline-none"
-                  value={editingAd.url}
-                  onChange={(e) => setEditingAd({...editingAd, url: e.target.value})}
-                  required
-                />
-              </div>
-              
-              <div className="flex gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsEditModalOpen(false)} className="flex-1 border-(--byreix-border) text-white hover:bg-white/5">Cancel</Button>
-                <Button type="submit" className="flex-1 bg-(--byreix-green) text-(--byreix-bg) font-bold hover:opacity-90">Save Changes</Button>
-              </div>
-            </form>
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-xl bg-(--byreix-surface) border-(--byreix-border) p-0 overflow-hidden gap-0">
+          <DialogHeader className="p-6 border-b border-(--byreix-border)">
+            <DialogTitle className="text-xl font-bold text-white">
+              {editingAd ? 'Edit Advertisement' : 'Create New Advertisement'}
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              {editingAd ? 'Update the details of your banner ad below.' : 'Fill in the details to create a new banner ad campaign.'}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="p-6">
+            <BannerAdForm
+              initialData={editingAd || undefined}
+              onSubmit={handleFormSubmit}
+              onCancel={() => setIsModalOpen(false)}
+            />
           </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
