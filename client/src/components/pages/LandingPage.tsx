@@ -179,9 +179,9 @@ export function LandingPage({ onNavigate, onConnect }: LandingPageProps) {
             </section>
             <AdSlot adId="Hero-ads">
                 <BannerAd
-                    imageURL="/ads/leaderboard-ad.jpg"
+                    imageURL="/mockThumbnail.png"
                     linkURL="https://example.com"
-                    size={BannerAdSize.LEADERBOARD} altText={""} />
+                    size={BannerAdSize.LEADERBOARD} altText="Leaderboard Ad" />
             </AdSlot>
 
             {/* Features Grid */}

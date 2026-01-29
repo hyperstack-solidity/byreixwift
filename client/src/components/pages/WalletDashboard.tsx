@@ -275,9 +275,12 @@ export function WalletDashboard() {
                                 ))}
                                 <AdSlot adId="wallet-sidebar-ad" className="mt-8">
                                     <BannerAd
-                                        imageURL="/ads/medium-rectangle-ad.jpg"
+                                        imageURL="/ads.mp4"
                                         linkURL="https://example.com"
-                                        size={BannerAdSize.MEDIUM_RECTANGLE} altText={""} />
+                                        size={BannerAdSize.MEDIUM_RECTANGLE}
+                                        altText="Video Ad"
+                                        mediaType="video"
+                                    />
                                 </AdSlot>
                             </div>
                         </div>

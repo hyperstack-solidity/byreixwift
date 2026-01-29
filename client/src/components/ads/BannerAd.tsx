@@ -16,6 +16,7 @@ interface BannerAdProps {
     altText: string;
     size: BannerAdSize;
     position?: "top" | "bottom" | "inline";
+    mediaType?: "image" | "video";
 }
 
 const sizeClasses: Record<BannerAdSize, string> = {
@@ -30,7 +31,9 @@ export const BannerAd: React.FC<BannerAdProps> = ({
     linkURL,
     altText = "Advertisemen",
     size,
-    position = "inline" }) => {
+    position = "inline",
+    mediaType = "image"
+}) => {
     const [loaded, setLoaded] = React.useState(false);
 
     return (
@@ -51,14 +54,26 @@ export const BannerAd: React.FC<BannerAdProps> = ({
                 rel="noopener noreferrer"
                 className="block h-full w-full"
             >
-                <Image
-                    src={imageURL}
-                    alt={altText}
-                    fill
-                    onLoad={() => setLoaded(true)}
-                    className={`object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"
-                        }`}
-                />
+                {mediaType === "video" ? (
+                    <video
+                        src={imageURL}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className={`h-full w-full object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+                        onLoadedData={() => setLoaded(true)}
+                    />
+                ) : (
+                    <Image
+                        src={imageURL}
+                        alt={altText}
+                        fill
+                        onLoad={() => setLoaded(true)}
+                        className={`object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"
+                            }`}
+                    />
+                )}
             </a>
         </div>
     );

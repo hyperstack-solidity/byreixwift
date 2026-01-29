@@ -18,6 +18,7 @@ const bannerAdSchema = z.object({
     startDate: z.string().min(1, "Start date is required"),
     endDate: z.string().min(1, "End date is required"),
     status: z.enum(['active', 'inactive']),
+    mediaType: z.enum(['image', 'video']),
     image: z.any().optional(), // We'll handle image validation manually or via file input
 });
 
@@ -61,11 +62,13 @@ export const BannerAdForm: React.FC<BannerAdFormProps> = ({
             startDate: initialData?.startDate || '',
             endDate: initialData?.endDate || '',
             status: initialData?.status || 'active',
+            mediaType: initialData?.mediaType || 'image',
         },
     });
 
     const selectedPlacements = useFormWatch({ control, name: 'placements' });
     const status = useFormWatch({ control, name: 'status' });
+    const mediaType = useFormWatch({ control, name: 'mediaType' });
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -98,9 +101,23 @@ export const BannerAdForm: React.FC<BannerAdFormProps> = ({
     return (
         <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
 
-            {/* Name & URL */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Top Settings: Type & Name */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="space-y-2">
+                    <label className="text-xs font-bold text-(--byreix-text-secondary) uppercase">Ad Type</label>
+                    <select
+                        {...register('mediaType')}
+                        className={`w-full bg-(--byreix-bg) border ${errors.mediaType ? 'border-red-500' : 'border-(--byreix-border)'} rounded-lg p-3 text-sm text-white focus:ring-1 focus:ring-(--byreix-green) outline-none appearance-none cursor-pointer`}
+                        onChange={(e) => {
+                            setValue('mediaType', e.target.value as 'image' | 'video');
+                            setPreviewUrl(null); // Reset preview on type change
+                        }}
+                    >
+                        <option value="image">Image</option>
+                        <option value="video">Video</option>
+                    </select>
+                </div>
+                <div className="md:col-span-3 space-y-2">
                     <label className="text-xs font-bold text-(--byreix-text-secondary) uppercase">Ad Name</label>
                     <input
                         {...register('name')}
@@ -109,35 +126,51 @@ export const BannerAdForm: React.FC<BannerAdFormProps> = ({
                     />
                     {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
                 </div>
-
-                <div className="space-y-2">
-                    <label className="text-xs font-bold text-(--byreix-text-secondary) uppercase">Target URL</label>
-                    <input
-                        {...register('url')}
-                        className={`w-full bg-(--byreix-bg) border ${errors.url ? 'border-red-500' : 'border-(--byreix-border)'} rounded-lg p-3 text-sm text-white focus:ring-1 focus:ring-(--byreix-green) outline-none`}
-                        placeholder="https://example.com"
-                    />
-                    {errors.url && <p className="text-xs text-red-500 mt-1">{errors.url.message}</p>}
-                </div>
             </div>
 
-            {/* Image Upload */}
             <div className="space-y-2">
-                <label className="text-xs font-bold text-(--byreix-text-secondary) uppercase">Ad Creative</label>
-                <div className={`border-2 border-dashed ${errors.image ? 'border-red-500' : 'border-(--byreix-border)'} rounded-xl p-4 flex flex-col items-center justify-center bg-(--byreix-bg)/50 hover:bg-(--byreix-bg) transition-colors relative overflow-hidden group min-h-[160px]`}>
+                <label className="text-xs font-bold text-(--byreix-text-secondary) uppercase">Target URL</label>
+                <input
+                    {...register('url')}
+                    className={`w-full bg-(--byreix-bg) border ${errors.url ? 'border-red-500' : 'border-(--byreix-border)'} rounded-lg p-3 text-sm text-white focus:ring-1 focus:ring-(--byreix-green) outline-none`}
+                    placeholder="https://example.com"
+                />
+                {errors.url && <p className="text-xs text-red-500 mt-1">{errors.url.message}</p>}
+            </div>
+
+            {/* Creative Upload */}
+            <div className="space-y-2">
+                <label className="text-xs font-bold text-(--byreix-text-secondary) uppercase">
+                    {mediaType === 'video' ? 'Video Creative (MP4, WebM)' : 'Image Creative'}
+                </label>
+                <div className={`border-2 border-dashed ${errors.image ? 'border-red-500' : 'border-(--byreix-border)'} rounded-xl p-4 flex flex-col items-center justify-center bg-(--byreix-bg)/50 hover:bg-(--byreix-bg) transition-colors relative overflow-hidden group min-h-[200px]`}>
 
                     {previewUrl ? (
-                        <div className="relative w-full h-full min-h-[160px] flex items-center justify-center">
-                            <Image
-                                src={previewUrl}
-                                alt="Preview"
-                                fill
-                                className="object-contain"
-                            />
-                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div className="relative w-full h-full min-h-[200px] flex items-center justify-center bg-black/20">
+                            {mediaType === 'video' ? (
+                                <video
+                                    src={previewUrl}
+                                    controls
+                                    className="max-h-[200px] w-auto max-w-full rounded"
+                                />
+                            ) : (
+                                <Image
+                                    src={previewUrl}
+                                    alt="Preview"
+                                    fill
+                                    className="object-contain"
+                                />
+                            )}
+
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
                                 <label className="cursor-pointer bg-white text-black px-4 py-2 rounded-full text-sm font-bold hover:scale-105 transition-transform">
-                                    Change Image
-                                    <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
+                                    Change {mediaType === 'video' ? 'Video' : 'Image'}
+                                    <input
+                                        type="file"
+                                        className="hidden"
+                                        accept={mediaType === 'video' ? "video/*" : "image/*"}
+                                        onChange={handleImageChange}
+                                    />
                                 </label>
                             </div>
                         </div>
@@ -147,8 +180,17 @@ export const BannerAdForm: React.FC<BannerAdFormProps> = ({
                                 <Upload size={20} />
                             </div>
                             <p className="text-sm text-(--byreix-text-secondary)">Click to upload or drag and drop</p>
-                            <p className="text-xs text-(--byreix-text-secondary)/60">SVG, PNG, JPG or GIF (max. 800x400px)</p>
-                            <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
+                            <p className="text-xs text-(--byreix-text-secondary)/60">
+                                {mediaType === 'video'
+                                    ? 'MP4, WebM or OGG (max. 15s recommended)'
+                                    : 'SVG, PNG, JPG or GIF (max. 800x400px)'}
+                            </p>
+                            <input
+                                type="file"
+                                className="hidden"
+                                accept={mediaType === 'video' ? "video/*" : "image/*"}
+                                onChange={handleImageChange}
+                            />
                         </label>
                     )}
                 </div>

@@ -71,9 +71,9 @@ export function Footer() {
                 </div>
                 <AdSlot adId="footer-ads" className="mt-8">
                     <BannerAd
-                        imageURL="/ads/medium-rectangle-ad.jpg"
+                        imageURL="/mockThumbnail.png"
                         linkURL="https://example.com"
-                        size={BannerAdSize.MEDIUM_RECTANGLE} altText={""} />
+                        size={BannerAdSize.MEDIUM_RECTANGLE} altText="Footer Ad" />
                 </AdSlot>
 
                 {/* Bottom Bar */}

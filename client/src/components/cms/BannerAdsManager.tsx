@@ -22,12 +22,13 @@ interface Ad {
   placements?: string[];
   startDate?: string;
   endDate?: string;
+  mediaType?: 'image' | 'video';
 }
 
 // mock data for ads
 const initialAds: Ad[] = [
-  { id: 1, name: 'Sidra Chain', url: 'https://Sidra.com/news', status: 'active', impressions: 1240, clicks: 88, thumbnail: '/mockThumbnail.png', size: BannerAdSize.LEADERBOARD, placements: ['homepage_top'], startDate: '2024-01-01', endDate: '2024-12-31' },
-  { id: 2, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'inactive', impressions: 0, clicks: 0, thumbnail: '/mockThumbnail.png', size: BannerAdSize.MEDIUM_RECTANGLE, placements: ['sidebar_right'], startDate: '2024-02-01', endDate: '2024-03-01' },
+  { id: 1, name: 'Sidra Chain', url: 'https://Sidra.com/news', status: 'active', impressions: 1240, clicks: 88, thumbnail: '/mockThumbnail.png', size: BannerAdSize.LEADERBOARD, placements: ['homepage_top'], startDate: '2024-01-01', endDate: '2024-12-31', mediaType: 'image' },
+  { id: 2, name: 'O Block Street', url: 'https://Kingvon.com/ArmAndDangerous', status: 'active', impressions: 420, clicks: 69, thumbnail: '/ads.mp4', size: BannerAdSize.MEDIUM_RECTANGLE, placements: ['sidebar_right'], startDate: '2024-02-01', endDate: '2024-03-01', mediaType: 'video' },
 ];
 
 export const BannerAdsManager = () => {
@@ -147,8 +148,12 @@ export const BannerAdsManager = () => {
               {filteredAds.map((ad) => (
                 <div key={ad.id} className="p-4 space-y-4">
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded bg-(--byreix-bg) border border-(--byreix-border) shrink-0 relative overflow-hidden">
-                      <Image src={ad.thumbnail} alt="Preview" fill className="object-cover" />
+                    <div className="w-12 h-12 rounded bg-(--byreix-bg) border border-(--byreix-border) shrink-0 relative overflow-hidden flex items-center justify-center">
+                      {ad.mediaType === 'video' ? (
+                        <div className="text-white bg-black/50 p-1 rounded-full"><span className="text-[8px]">VIDEO</span></div>
+                      ) : (
+                        <Image src={ad.thumbnail} alt="Preview" fill className="object-cover" />
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-bold text-white truncate">{ad.name}</p>
@@ -206,7 +211,11 @@ export const BannerAdsManager = () => {
                       <tr key={ad.id} className="hover:bg-white/2 transition-colors group">
                         <td className="w-[12%] px-6 py-4">
                           <div className="w-11 h-11 rounded bg-(--byreix-bg) border border-(--byreix-border) flex items-center justify-center overflow-hidden">
-                            <Image src={ad.thumbnail} alt="Preview" width={44} height={44} className="object-cover rounded" />
+                            {ad.mediaType === 'video' ? (
+                              <div className="text-[8px] font-bold text-white bg-black/60 px-1 py-0.5 rounded">VIDEO</div>
+                            ) : (
+                              <Image src={ad.thumbnail} alt="Preview" width={44} height={44} className="object-cover rounded" />
+                            )}
                           </div>
                         </td>
                         <td className="w-[43%] px-6 py-4">
