@@ -4,25 +4,13 @@
 **/node_modules/
 /.pnp
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
 
 # next.js
 **/.next/
-/out/
+**/out/
 
 # production
-/build
-
-# misc
-.DS_Store
-*.pem
+**/build
 
 # debug
 npm-debug.log*
@@ -30,28 +18,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-#.env*
+# env files
+.env*
 
 # vercel
-.vercel
+**/.vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# add appsettings.json soon
-#appsettings.json
-
-
-# vs
-.vs/
-
-# bin
-**/bin
-
-# obj
-**/obj
-
-#vscode
-**/.vscode
